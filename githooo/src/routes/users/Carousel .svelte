@@ -214,7 +214,7 @@
     
   </div>  
   
-  <style lang="postcss">
+  <style>
    
     .scene {
       margin: 40px 0;
@@ -254,12 +254,12 @@
     }
   
     .carousel__cell:focus {
-      outline: 3px solid #007bff;
-      outline-offset: 2px;
-      width: 200px;
-      height: 130px;
+        transform: scale(1.5);
     }
   
+    .carousel__cell::after{
+        transform: scale(1.0);
+    }
     .controls {
       text-align: center;
       margin: 20px 0;
