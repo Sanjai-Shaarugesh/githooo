@@ -1,30 +1,30 @@
 <script lang='ts'>
     // @ts-nocheck
+  
     import { onMount } from 'svelte';
   
-    let {images} = $props<{
-      images: {
-        RandomUsers: Array<{
-          avatar_url: string;
-          login: string;
-        }>;
-      };
-    }>();
+    export let images = {
+      RandomUsers: [] as Array<{
+        avatar_url: string;
+        login: string;
+      }>
+    };
+  
     let carousel;
-    
-    let angle = $state(0);
-    let selectedIndex = $state(0);
-    let isDragging = $state(false);
-    let startX = $state(0);
-    let currentX = $state(0);
-    let autoRotate = $state(false);
+  
+    let angle = 0;
+    let selectedIndex = 0;
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    let autoRotate = false;
     let autoRotateInterval;
   
     const cellSize = 210;
     const minCellCount = 3;
     const maxCellCount = 50;
-    let cellCount = $state(9);
-    let radius = $state(0);
+    let cellCount = 9;
+    let radius = 0;
   
     function calculateRadius() {
       radius = Math.round((cellSize / 2) / Math.tan(Math.PI / cellCount));
@@ -110,14 +110,29 @@
       }
     }
   
+    let keydownHandler;
+  
     onMount(() => {
       calculateRadius();
       updateCarouselCells();
+      
+      keydownHandler = (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          rotateCarousel(-1);
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          rotateCarousel(1);
+        }
+      };
+  
+      document.addEventListener('keydown', keydownHandler);
       
       return () => {
         if (autoRotateInterval) {
           clearInterval(autoRotateInterval);
         }
+        document.removeEventListener('keydown', keydownHandler);
       };
     });
   </script>
@@ -156,11 +171,34 @@
   </div>
   
   <div class="controls">
-    <button onclick={() => rotateCarousel(-1)}>Rotate Left</button>
-    <button onclick={() => rotateCarousel(1)}>Rotate Right</button>
-    <button onclick={toggleAutoRotate}>
-      {autoRotate ? 'Stop Auto Rotate' : 'Start Auto Rotate'}
-    </button>
+    
+    <a onclick={() => rotateCarousel(-1)} href="#_" class="relative  items-center justify-center inline-block p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 rounded-lg shadow-2xl group">
+        <span class="absolute top-0 left-0 w-40 h-40 -mt-10 -ml-3 transition-all duration-700 bg-red-500 rounded-full blur-md ease"></span>
+        <span class="absolute inset-0 w-full h-full transition duration-700 group-hover:rotate-180 ease">
+            <span class="absolute bottom-0 left-0 w-24 h-24 -ml-10 bg-purple-500 rounded-full blur-md"></span>
+            <span class="absolute bottom-0 right-0 w-24 h-24 -mr-10 bg-pink-500 rounded-full blur-md"></span>
+        </span>
+        <span class="relative text-white" >Rotate left</span>
+    </a>
+    
+
+    <a href="#_" onclick={() => rotateCarousel(1)} class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
+        <span class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
+            <span class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
+        </span>
+        <span class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-red-600 rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
+        <span class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">Rotate right</span>
+    </a>
+    
+
+    <a href="#_" onclick={toggleAutoRotate} class="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-full shadow-md group">
+        <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-purple-500 group-hover:translate-x-0 ease">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </span>
+        <span class="absolute flex items-center justify-center w-full h-full text-purple-500 transition-all duration-300 transform group-hover:translate-x-full ease">Button Text</span>
+        <span class="relative invisible"> {autoRotate ? 'Stop Auto Rotate' : 'Start Auto Rotate'}</span>
+    </a>
+
     <label for="cell-slider">Number of Cells:</label>
     <input
       id="cell-slider"
@@ -170,9 +208,14 @@
       value={cellCount}
       oninput={handleSliderChange}
     />
+
+
+    
+    
   </div>  
   
-  <style>
+  <style lang="postcss">
+   
     .scene {
       margin: 40px 0;
       position: relative;
