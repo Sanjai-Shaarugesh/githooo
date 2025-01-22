@@ -1,23 +1,32 @@
 <script lang='ts'>
 	
-	
-	 import Carousel from './Carousel .svelte'
-  
+  import { A, DarkMode } from 'flowbite-svelte';
+	 import Carousel from './Carousel .svelte';
+   import { Card, Button, Toggle } from 'flowbite-svelte';
+  import { ArrowRightOutline } from 'flowbite-svelte-icons';
+ 
     export let data;
+     let vCard = false;
    // console.log(data)
 </script>
+<DarkMode class="text-primary-500 dark:text-primary-600 border dark:border-gray-800" />
 
-{#each data.RandomUsers as datas}
-<div class="shrink-0 group block">
-    <div class="flex items-center">
-      <img class="inline-block shrink-0 size-[62px] rounded-full" src={datas.avatar_url} alt={datas.login}>
-      <div class="ms-3">
-        <h3 class="font-semibold text-gray-800 dark:text-white">{datas.login}</h3>
-        <p class="text-sm font-medium text-gray-400 dark:text-neutral-500">{datas.email}</p>
-      </div>
-    </div>
-  </div>
-{/each}
+<div class='gap-8 columns-2xs'>{#each data.RandomUsers as datas}
+<div  class="space-y-4">
+  <Card img={datas.avatar_url} reverse={vCard}>
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{datas.login}</h5>
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight">{datas.email}</p>
+    <a href={`users/${datas.login}`} target="_blank"><Button>
+      Read more <ArrowRightOutline class="w-6 h-6 ms-2 text-white" />
+    </Button></a>
+    
+  </Card>
+  <Toggle bind:checked={vCard} class="italic dark:text-gray-500">Reverse</Toggle>
+</div>
+{/each}</div>
+
+
+
 
 <Carousel images={data} />
 

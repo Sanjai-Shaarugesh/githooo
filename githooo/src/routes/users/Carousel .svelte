@@ -2,6 +2,8 @@
     // @ts-nocheck
   
     import { onMount } from 'svelte';
+    import { ButtonGroup, Button ,  GradientButton  } from 'flowbite-svelte';
+    import { Range , Label } from 'flowbite-svelte';
   
     export let images = {
       RandomUsers: [] as Array<{
@@ -21,7 +23,7 @@
     let autoRotateInterval;
   
     const cellSize = 210;
-    const minCellCount = 3;
+    const minCellCount = 20;
     const maxCellCount = 50;
     let cellCount = 9;
     let radius = 0;
@@ -170,49 +172,23 @@
     </div>
   </div>
   
-  <div class="controls">
-    
-    <a onclick={() => rotateCarousel(-1)} href="#_" class="relative  items-center justify-center inline-block p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 rounded-lg shadow-2xl group">
-        <span class="absolute top-0 left-0 w-40 h-40 -mt-10 -ml-3 transition-all duration-700 bg-red-500 rounded-full blur-md ease"></span>
-        <span class="absolute inset-0 w-full h-full transition duration-700 group-hover:rotate-180 ease">
-            <span class="absolute bottom-0 left-0 w-24 h-24 -ml-10 bg-purple-500 rounded-full blur-md"></span>
-            <span class="absolute bottom-0 right-0 w-24 h-24 -mr-10 bg-pink-500 rounded-full blur-md"></span>
-        </span>
-        <span class="relative text-white" >Rotate left</span>
-    </a>
-    
+  <div class='controls'>
+    <ButtonGroup>
+      <GradientButton shadow color="green" onclick={() => rotateCarousel(-1)}>Left</GradientButton>
+      <GradientButton shadow color="pink" onclick={() => rotateCarousel(1)}>Right</GradientButton>
+      <GradientButton shadow color="teal" onclick={toggleAutoRotate}> {autoRotate ? 'Stop Auto Rotate' : 'Start Auto Rotate'}</GradientButton>
+    </ButtonGroup>
 
-    <a href="#_" onclick={() => rotateCarousel(1)} class="relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
-        <span class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
-            <span class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
-        </span>
-        <span class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-red-600 rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
-        <span class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">Rotate right</span>
-    </a>
+    <label for="cell-slider"></label>
+   
+
+    <Label>Number of Cells:{cellCount}</Label>
+    <Range id="range-minmax" min={minCellCount} max={maxCellCount} bind:value={cellCount}  oninput={handleSliderChange} size='lg' />
     
 
-    <a href="#_" onclick={toggleAutoRotate} class="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-full shadow-md group">
-        <span class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-purple-500 group-hover:translate-x-0 ease">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-        </span>
-        <span class="absolute flex items-center justify-center w-full h-full text-purple-500 transition-all duration-300 transform group-hover:translate-x-full ease">Button Text</span>
-        <span class="relative invisible"> {autoRotate ? 'Stop Auto Rotate' : 'Start Auto Rotate'}</span>
-    </a>
-
-    <label for="cell-slider">Number of Cells:</label>
-    <input
-      id="cell-slider"
-      type="range"
-      min={minCellCount}
-      max={maxCellCount}
-      value={cellCount}
-      oninput={handleSliderChange}
-    />
-
-
     
-    
-  </div>  
+  </div>
+
   
   <style>
    
@@ -251,10 +227,17 @@
       cursor: pointer;
       transform-origin: center;
       border-radius: 25px;
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+
+    .carousel__cell:hover {
+      transform: scale(1.2);
     }
   
     .carousel__cell:focus {
         transform: scale(1.5);
+        
     }
   
     .carousel__cell::after{
@@ -270,7 +253,7 @@
       padding: 8px 16px;
      
       color: white;
-      border: none;
+      
       border-radius: 4px;
       cursor: pointer;
     }
@@ -282,6 +265,7 @@
     button:focus {
       
       outline-offset: 2px;
+      filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.2));
     }
   
    
