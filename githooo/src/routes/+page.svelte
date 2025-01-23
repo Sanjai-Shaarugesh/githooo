@@ -1,13 +1,14 @@
 <script lang='ts'>
 // @ts-nocheck
 
+
     export let data;
     console.log(data)
 
     //import {signIn , signOut} from '../auth/auth'
      import { signIn, signOut } from '@auth/sveltekit/client'
    import {page} from '$app/state'
-
+    
     console.log(page.data.session)
    
     
@@ -36,6 +37,8 @@
     <button on:click={()=>{signIn('github')}}>login using github</button>
     {/if}
 </div>
+
+
 
 <style>
     button{
