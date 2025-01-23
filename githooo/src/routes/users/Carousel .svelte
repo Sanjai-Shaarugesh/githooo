@@ -159,12 +159,12 @@
               aria-label="Carousel item {i + 1}"
               onclick={() => handleCellClick(i)}
               onkeydown={(e) => handleKeyDown(e, i)}
-            >
-              <img 
+            > <a href={`/users/${user.login}`}><img 
               class="carousel__cell"
                 src={user.avatar_url} 
                 alt={user.login}
-              />
+              /></a>
+              
             </button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <script lang='ts'>
 	import '../app.css';
-	import { page } from '$app/stores';
+	import {page} from '$app/state'
 	import { afterNavigate } from "$app/navigation";
     import { createMenubar, melt } from '@melt-ui/svelte';
     
@@ -14,13 +14,14 @@
 
 
 
-    const activeUrl = $page.url.pathname;
-    const data = $page.data.session?.user;
+    const activeUrl = page.url.pathname;
+    const data = page.data.session?.user;
 	const navItems = [
 		{
 			name: 'Home',
 			link: '/',
 			icon: Home
+			
 		},
 		{
 			name: 'Users',
@@ -33,7 +34,19 @@
 			icon: MessageCircle
 		}
 		
+		
 	];
+
+	export function authFun():string{
+       if(page.data.session){
+		return 'signOut'
+	   }
+
+	   else{
+		return 'login'
+	   }
+
+	}
 
 	afterNavigate(() => {
 		if (typeof window !== 'undefined' && 'HSStaticMethods' in window) {
@@ -45,16 +58,6 @@
   
 	
 
-// Reactive state for mobile menu and dropdown
-let isMobileMenuOpen = false;
-let isUserDropdownOpen = false;
-
-let isVisible  = $state(false);
-
-function toggle(){
-	isVisible = !isVisible;
-	console.log(isVisible)
-}
 
 
 </script>
@@ -64,16 +67,16 @@ function toggle(){
 
 
 <div class="relative w-full">
-	<FloatingNavbar {navItems} /> 
+	<FloatingNavbar {navItems}  auth={authFun()}/> 
 	
 	<div
 		class="relative grid h-full w-full grid-cols-1 rounded-md border border-neutral-200 bg-white dark:border-white/[0.2] dark:bg-black"
 	>
 		
-		
+	
 		
 	</div>
-	<DarkMode {btnClass} size='lg'  />
+	
 
 
 	
@@ -82,6 +85,8 @@ function toggle(){
 
 
 
-
+<DarkMode {btnClass} size='lg'   />	
  
-<slot></slot>
+<slot>
+
+</slot>

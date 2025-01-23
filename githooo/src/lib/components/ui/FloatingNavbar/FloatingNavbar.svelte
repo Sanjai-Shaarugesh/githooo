@@ -3,20 +3,27 @@
 	import { cn } from "$lib/utils.js";
 	import type { ComponentType } from 'svelte';
 	import { DarkMode } from 'flowbite-svelte';
+	import { signIn, signOut } from '@auth/sveltekit/client';
+	import { sineOut } from 'svelte/easing';
 
-	export let navItems: {
-		name: string;
-		link: string;
-		icon?: ComponentType;
-	}[];
-	export let className: string | undefined = undefined;
+	const { auth, navItems, className = undefined } = $props<{
+		auth: string;
+		navItems: {
+			name: string;
+			link: string;
+			icon?: ComponentType;
+		}[];
+		className?: string;
+	}>();
 
 	// const { scrollYProgress } = useScroll();
 	const { scrollYProgress } = useViewportScroll();
 
-	let visible = false;
+	let visible = $state(false);
 
-	$: $scrollYProgress, updateDirection();
+	$effect(() => {
+		updateDirection();
+	});
 
 	function updateDirection() {
 		console.log($scrollYProgress);
@@ -34,7 +41,12 @@
 			}
 		}
 	}
+
+	
 </script>
+
+
+
 
 <AnimatePresence show={true}>
 	<Motion
@@ -65,10 +77,11 @@
 						'relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300'
 					)}
 				>
-					<svelte:component
-						this={navItem.icon}
-						class="block h-4 w-4 text-neutral-500 dark:text-white sm:hidden"
-					></svelte:component>
+					{#if navItem.icon}
+						<navItem.icon
+							class="block h-4 w-4 text-neutral-500 dark:text-white sm:hidden"
+						/>
+					{/if}
 					<span class="block h-4 w-4 text-neutral-500 dark:text-white sm:hidden"
 						>{navItem.icon}</span
 					>
@@ -76,15 +89,26 @@
                     
 				</a>
 			{/each}
-			<button
+			{#if auth === 'signOut'}
+			<button onclick={()=>{signOut()}}
 				class="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white"
 			>
-				<span>Login</span>
-                
+			<span>signOut</span>
 				<span
 					class="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-blue-500 to-transparent"
 				></span>
 			</button>
+			{:else}
+			<button onclick={()=>{signIn('github')}}
+				class="relative rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-black dark:border-white/[0.2] dark:text-white"
+			>
+			<span>signIn</span>
+				<span
+					class="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-blue-500 to-transparent"
+				></span>
+			</button>
+			{/if}
+			
             <DarkMode />
 		</div>
 	</Motion>
