@@ -1,8 +1,13 @@
+import { redirect } from "@sveltejs/kit";
 
 
 export const load = (async({parent})=>{
     const {session} = await parent();
     
+    
+    if (!session?.user ) {
+        throw redirect(303, '/login');
+      }
     const followers = async() =>{
         const res = await fetch(`https://api.github.com/user/followers`,{
             headers:{
@@ -35,7 +40,7 @@ export const load = (async({parent})=>{
     
      return{
         user: await userInfo(),
-        
+        session: await session,
       follwers : await followers()
      }
     })

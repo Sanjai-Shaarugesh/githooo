@@ -1,9 +1,15 @@
+import { redirect } from "@sveltejs/kit";
+
 //@ts-ignore
 export const load = (async({fetch,params,parent}) =>{
     const username = params.slug
    
     
     const {session} = await parent();
+    
+    if (!session?.user ) {
+        throw redirect(303, '/login');
+      }
 
     const fetchUsers =  async () =>{
         const res = await fetch(`https://api.github.com/users/${username}`,{
