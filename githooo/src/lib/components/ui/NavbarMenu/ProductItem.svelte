@@ -6,7 +6,7 @@
 </script>
 
 <a {href} class="flex space-x-2">
-	<img {src} width={140} height={70} alt={title} class="flex-shrink-0 rounded-md shadow-2xl" />
+	<enhanced:img {src} width={140} height={70} alt={title} class="flex-shrink-0 rounded-md shadow-2xl" />
 	<div>
 		<h4 class="mb-1 text-xl font-bold text-black dark:text-white">
 			{title}

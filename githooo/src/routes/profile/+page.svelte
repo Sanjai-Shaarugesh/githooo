@@ -54,7 +54,7 @@
                     <div class="flex justify-end mr-2">
                         {#each info as info}
                         <img class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2"
-                            src={info.avatar_url} alt="">
+                            src={info.avatar_url} alt={info.login}>
                         {/each}
                         {#if info.length > 5}
                         <span class="flex items-center justify-center bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white font-semibold border-2 border-gray-200 dark:border-gray-700 rounded-full h-10 w-10">
