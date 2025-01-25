@@ -10,12 +10,12 @@
 	import { writable } from 'svelte/store';
 	import { NavbarMenu, HoveredLink, MenuItem, ProductItem } from '../lib/components/ui/NavbarMenu';
 	import { DarkMode } from 'flowbite-svelte';
-	let active: string | null = null;
+	
 	import { Home, MessageCircle, User } from 'lucide-svelte';
 	import { FloatingNavbar } from '$lib/components/ui/FloatingNavbar';
     import { onMount } from 'svelte';
 
-
+    let active: string | null = null;
     const activeUrl = page.url.pathname;
     const data = page.data.session?.user;
 
@@ -42,9 +42,14 @@
 			icon: User
 		},
 		{
-			name: 'profile',
+			name: 'Profile',
 			link: '/profile',
 			icon: MessageCircle
+		},
+		{
+			name: 'Login',
+			link: '/login',
+			icon: User
 		}
 		
 		
@@ -128,6 +133,7 @@
 			<a href="/profile"><DropdownItem>profile</DropdownItem></a>
 		<a href="/users"><DropdownItem>Users</DropdownItem></a>
 		<a href="/"><DropdownItem>Home</DropdownItem></a>
+		<a href="/login"><DropdownItem>Login</DropdownItem></a>
 		
 		<DropdownItem slot="footer">Sign out</DropdownItem>
 		

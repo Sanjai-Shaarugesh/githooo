@@ -1,28 +1,29 @@
 <script>
-       import { signIn} from '@auth/sveltekit/client'
+	import { DropdownDivider } from 'flowbite-svelte';
+       import { signIn} from '@auth/sveltekit/client';
+       import { PinContainer } from '$lib/components/ui/ThreeDPin';
   </script>
   
-  <div class="flex items-center justify-center min-h-screen bg-black-100">
-    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-      <h1 class="text-xl font-bold text-gray-800 mb-4 text-center">Sign in with GitHub</h1>
-      <button
-        on:click={() => signIn('github')}
-        class="flex items-center justify-center w-full px-4 py-2 text-white bg-gray-900 hover:bg-gray-800 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
-      >
-        <svg
-          class="w-6 h-6 mr-2"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M12 2C6.477 2 2 6.477 2 12c0 4.417 2.865 8.166 6.839 9.49.5.09.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.605-3.37-1.342-3.37-1.342-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.607.069-.607 1.003.071 1.532 1.031 1.532 1.031.892 1.53 2.341 1.089 2.91.833.091-.647.35-1.089.636-1.34-2.22-.252-4.555-1.11-4.555-4.945 0-1.092.39-1.985 1.03-2.683-.103-.253-.446-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.847c.85.004 1.705.114 2.504.335 1.908-1.294 2.746-1.025 2.746-1.025.547 1.377.204 2.394.1 2.646.642.698 1.03 1.591 1.03 2.683 0 3.845-2.339 4.69-4.566 4.937.359.31.678.92.678 1.852 0 1.337-.012 2.417-.012 2.745 0 .268.18.576.688.478A10.011 10.011 0 0022 12c0-5.523-4.477-10-10-10z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-        Sign in with GitHub
-      </button>
-    </div>
-  </div>
+<div class="flex items-center justify-center min-h-30vh"><button  onclick={()=>{signIn('github')}} type="button" class="py-2 px-4 max-w-md flex justify-center items-center bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mr-2" viewBox="0 0 1792 1792">
+      <path d="M896 128q209 0 385.5 103t279.5 279.5 103 385.5q0 251-146.5 451.5t-378.5 277.5q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-119-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-85-13.5q-45 113-8 204-79 87-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-39 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5t-146.5-451.5q0-209 103-385.5t279.5-279.5 385.5-103zm-477 1103q3-7-7-12-10-3-13 2-3 7 7 12 9 6 13-2zm31 34q7-5-2-16-10-9-16-3-7 5 2 16 10 10 16 3zm30 45q9-7 0-19-8-13-17-6-9 5 0 18t17 7zm42 42q8-8-4-19-12-12-20-3-9 8 4 19 12 12 20 3zm57 25q3-11-13-16-15-4-19 7t13 15q15 6 19-6zm63 5q0-13-17-11-16 0-16 11 0 13 17 11 16 0 16-11zm58-10q-2-11-18-9-16 3-14 15t18 8 14-14z"></path>
+    </svg>
+    Sign in with GitHub
+  </button></div>
   
+
+  <div class="flex h-[40rem] w-full items-center justify-center">
+	<PinContainer title="/aceternity.sveltekit.io" href="https://aceternity.sveltekit.io">
+		<div
+			class="flex h-[20rem] w-[20rem] basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2"
+		>
+			<h3 class="!m-0 max-w-xs !pb-2 text-base font-bold text-slate-100">Aceternity UI</h3>
+			<div class="!m-0 !p-0 text-base font-normal">
+				<span class="text-slate-500">
+					Customizable Tailwind CSS and Framer Motion Components.
+				</span>
+			</div>
+			<div class="mt-4 flex w-full flex-1 rounded-lg bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500">
+		</div>
+	</PinContainer>
+</div>
