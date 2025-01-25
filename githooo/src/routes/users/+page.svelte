@@ -3,7 +3,7 @@
 
 
 	import Carousel from './Carousel .svelte';
-	import { Card, Button, Toggle, Avatar } from 'flowbite-svelte';
+	import { Card, Button, Toggle, Avatar, DropdownDivider } from 'flowbite-svelte';
 	import { ArrowRightOutline } from 'flowbite-svelte-icons';
 	import {CardItem,CardBody,CardContainer} from '$lib/components/ui/ThreeDCardEffect';
 	  import { Users } from 'lucide-svelte';
@@ -49,13 +49,16 @@
 			  />
 		  </CardItem>
 		  <div class="mt-20 flex items-center justify-between">
-			  <CardItem
+			<a href={`https://github.com/${user.login}`} target={'_blank'}> <CardItem
 				  {isMouseEntered}
 				  translateZ={20}
 				  className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
 			  >
-				  Try now →
-			  </CardItem>
+				  Github →
+				  
+			  </CardItem></a>
+			 
+			  
 		<a href={`/users/${user.login}`}><CardItem
 				  {isMouseEntered}
 				  translateZ={20}

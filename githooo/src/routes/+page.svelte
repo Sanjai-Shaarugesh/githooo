@@ -42,7 +42,7 @@
 			pathLengthThird,
 			pathLengthFourth,
 			pathLengthFifth
-		]}
+		] } title={'githooo'}   description={'Helpes to view multiple opensource contributes profile around the world'} 
 	/>
 </div>
 
