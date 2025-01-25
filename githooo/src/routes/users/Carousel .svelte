@@ -1,5 +1,7 @@
 <script lang='ts'>
     // @ts-nocheck
+   
+
   
     import { onMount } from 'svelte';
     import { ButtonGroup, Button ,  GradientButton  } from 'flowbite-svelte';
@@ -66,11 +68,13 @@
     }
   
     function handleKeyDown(event, index) {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        handleCellClick(index);
-      }
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            handleCellClick(index);
+        }
     }
+
+    
   
     function handleMouseDown(event) {
       isDragging = true;
@@ -93,12 +97,12 @@
     }
   
     function toggleAutoRotate() {
-      autoRotate = !autoRotate;
-      if (autoRotate) {
-        autoRotateInterval = setInterval(() => rotateCarousel(1), 2000);
-      } else {
-        clearInterval(autoRotateInterval);
-      }
+        autoRotate = !autoRotate;
+        if (autoRotate) {
+            autoRotateInterval = setInterval(() => rotateCarousel(1), 2000);
+        } else {
+            clearInterval(autoRotateInterval);
+        }
     }
   
     function handleSliderChange(event) {
@@ -126,6 +130,10 @@
           event.preventDefault();
           rotateCarousel(1);
         }
+        else if (event.key === 'Enter') {
+                event.preventDefault();
+                toggleAutoRotate(); // Toggle auto-rotate on Enter key press
+            }
       };
   
       document.addEventListener('keydown', keydownHandler);
@@ -137,6 +145,8 @@
         document.removeEventListener('keydown', keydownHandler);
       };
     });
+
+    
   </script>
   
   <div 
@@ -176,14 +186,15 @@
     <ButtonGroup>
       <GradientButton shadow color="green" onclick={() => rotateCarousel(-1)}>Left</GradientButton>
       <GradientButton shadow color="pink" onclick={() => rotateCarousel(1)}>Right</GradientButton>
-      <GradientButton shadow color="teal" onclick={toggleAutoRotate}> {autoRotate ? 'Stop Auto Rotate' : 'Start Auto Rotate'}</GradientButton>
+     
+      <GradientButton shadow color="teal" on:keydown={handleKeyDown()}  onclick={toggleAutoRotate}> {autoRotate ? 'Stop Auto Rotate' : 'Start Auto Rotate'}</GradientButton>
     </ButtonGroup>
 
     <label for="cell-slider"></label>
    
 
     <Label>Number of Cells:{cellCount}</Label>
-    <Range id="range-minmax" min={minCellCount} max={maxCellCount} bind:value={cellCount}  oninput={handleSliderChange} size='lg' />
+    <Range id="range-minmax" min={minCellCount} max={maxCellCount} bind:value={cellCount}  oninput={handleSliderChange} size='lg'  class="w-64"/>
     
 
     

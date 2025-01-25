@@ -1,7 +1,7 @@
 //@ts-ignore
 export const load = (async({fetch,params,parent}) =>{
     const username = params.slug
-   // console.log(params)
+   
     
     const {session} = await parent();
 

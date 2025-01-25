@@ -14,9 +14,11 @@
 	  let isMouseEntered = false;
 	export let data;
 	let vCard = false;
-	// console.log(data)
+	
   
   </script>
+
+<Carousel images={data} />
   
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">{#each data.RandomUsers as user}
   <CardContainer bind:isMouseEntered className="inter-var">
@@ -75,4 +77,4 @@
   
   
   
-  <Carousel images={data} />
+ 

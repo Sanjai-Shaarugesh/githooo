@@ -3,13 +3,13 @@
 
 
     export let data ;
-    console.log(data)
+    
 
     //import {signIn , signOut} from '../auth/auth'
      import { signIn, signOut } from '@auth/sveltekit/client'
    import {page} from '$app/state'
     
-    console.log(page.data.session)
+    
    
     
 
@@ -18,9 +18,7 @@
     
 
 </script>
-<p class="p-40 text-center text-4xl font-bold text-neutral-600 dark:text-white">
-    Scroll back up to reveal Navbar
-</p>
+
 <div>
     {#if page.data.session}
     <h1>you are logged in</h1>

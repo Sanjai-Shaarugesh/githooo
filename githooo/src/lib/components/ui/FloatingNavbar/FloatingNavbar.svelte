@@ -26,10 +26,10 @@
 	});
 
 	function updateDirection() {
-		console.log($scrollYProgress);
+		//console.log($scrollYProgress);
 
 		let direction = $scrollYProgress - scrollYProgress.getPrevious();
-		console.log(direction);
+		//console.log(direction);
 
 		if (scrollYProgress.get() < 0.05) {
 			visible = false;
