@@ -31,6 +31,11 @@
 
 </script>
 
+<svelte:head>
+	<title>githooo</title>
+	<meta name="description" content="welcome to githooo" />
+</svelte:head>
+
 <div
 	class="relative h-[400vh] w-full overflow-clip rounded-md bg-black py-40 dark:border dark:border-white/[0.1]"
 	bind:this={ref}

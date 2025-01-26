@@ -1,6 +1,8 @@
 import { json, error } from '@sveltejs/kit';
 import { GEMINI_API_KEY } from '$env/static/private';
 
+
+
 export const POST = async ({ request }) => {
   try {
     const formData = await request.formData();

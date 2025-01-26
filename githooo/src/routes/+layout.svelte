@@ -120,15 +120,15 @@
 
   
 	<!-- Dropdown button in the top-right corner -->
-	<div class="absolute top-0 right-0 m-4">
+	<div class="absolute top-0 right-0 m-4  bg-blue-500">
 	  <Button>
 		Dropdown button
 		<ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" />
 	  </Button>
   
 	  <!-- Dropdown menu -->
-	  <Dropdown>
-		<div slot="header" class="px-4 py-2">
+	  <Dropdown  >
+		<div slot="header" class="px-4 py-2" >
 			{#if data?.image}
 			<span>
 				<img class="inline-block size-[46px] rounded-full" src={data?.image} alt={data?.name}>

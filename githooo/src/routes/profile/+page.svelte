@@ -12,6 +12,11 @@
     
  </script>
  
+ <svelte:head>
+	<title>githooo</title>
+	<meta name="description" content="welcome to githooo" />
+</svelte:head>
+
  <div
      class="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-slate-900 p-60"
  >

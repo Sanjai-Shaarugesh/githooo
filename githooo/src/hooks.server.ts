@@ -2,12 +2,15 @@ export { handle } from "./auth/auth"
 
 import { SvelteKitAuth } from "@auth/sveltekit";
 import { redirect, type Handle } from "@sveltejs/kit";
+import * as amp from '@sveltejs/amp';
 
 export const hand:Handle = async({event,resolve}) =>{
     
    
     const session = await event.locals.getSession();
     const path = event.url.pathname
+    
+    let buffer = '';
 
     const protectedRoutes = [
         '/profile',
@@ -18,8 +21,11 @@ export const hand:Handle = async({event,resolve}) =>{
         throw redirect(303, '/login');
       }
     
-      return resolve(event, {
-        transformPageChunk: ({ html }) => html
+      return await resolve(event, {
+        transformPageChunk: ({ html, done }) => {
+          buffer += html;
+          if (done) return amp.transform(buffer);
+        }
       });
 
 }

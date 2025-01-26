@@ -18,6 +18,11 @@
   
   </script>
 
+<svelte:head>
+	<title>githooo</title>
+	<meta name="description" content="welcome to githooo" />
+</svelte:head>
+
 <Carousel images={data} />
   
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">{#each data.RandomUsers as user}

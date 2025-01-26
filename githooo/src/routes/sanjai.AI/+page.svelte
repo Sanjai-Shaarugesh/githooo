@@ -66,7 +66,10 @@
   }
 </script>
 
-
+<svelte:head>
+	<title>githooo</title>
+	<meta name="description" content="welcome to githooo" />
+</svelte:head>
 
 
   
