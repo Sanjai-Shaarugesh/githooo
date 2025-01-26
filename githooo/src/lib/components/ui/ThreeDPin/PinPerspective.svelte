@@ -1,6 +1,7 @@
 <script lang="ts">
+	
 	import { Motion } from 'svelte-motion';
-
+	
 	export let title: string | undefined = undefined;
 	export let href: string | undefined = undefined;
 </script>
@@ -13,7 +14,9 @@
 		<div class="inset-0 -mt-7 h-full w-full flex-none">
 			<div class="absolute inset-x-0 top-0 flex justify-center">
 				<a
-					{href}
+					{href} 
+					
+					
 					target={'_blank'}
 					class="relative z-10 flex items-center space-x-2 rounded-full bg-zinc-950 px-4 py-0.5 ring-1 ring-white/10"
 				>

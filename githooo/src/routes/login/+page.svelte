@@ -2,6 +2,8 @@
 	import { DropdownDivider } from 'flowbite-svelte';
        import { signIn} from '@auth/sveltekit/client';
        import { PinContainer } from '$lib/components/ui/ThreeDPin';
+	   export let data;
+	   const link = data.githubProfile;
   </script>
   
 <div class="flex items-center justify-center min-h-30vh"><button  onclick={()=>{signIn('github')}} type="button" class="py-2 px-4 max-w-md flex justify-center items-center bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
@@ -11,19 +13,20 @@
     Sign in with GitHub
   </button></div>
   
-
+ 
   <div class="flex h-[40rem] w-full items-center justify-center">
-	<PinContainer title="/aceternity.sveltekit.io" href="https://aceternity.sveltekit.io">
+	<a href={link} target="_blank"><PinContainer title="Github" href={link}>
 		<div
 			class="flex h-[20rem] w-[20rem] basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2"
 		>
-			<h3 class="!m-0 max-w-xs !pb-2 text-base font-bold text-slate-100">Aceternity UI</h3>
+			<h3 class="!m-0 max-w-xs !pb-2 text-base font-bold text-slate-100">Creator of this website </h3>
 			<div class="!m-0 !p-0 text-base font-normal">
 				<span class="text-slate-500">
-					Customizable Tailwind CSS and Framer Motion Components.
+					To reach me out me follow me on GitHub
 				</span>
 			</div>
 			<div class="mt-4 flex w-full flex-1 rounded-lg bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500">
 		</div>
-	</PinContainer>
+	</PinContainer></a>
+	
 </div>

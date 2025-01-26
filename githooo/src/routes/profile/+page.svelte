@@ -21,7 +21,7 @@
      />
  
      <BackgroundBoxes />
-     <div class="h-screen dark:bg-black-700 bg-black-200 pt-12">
+     <div class="h-screen dark:bg-black-700 bg-black-200 pt-12 cursor-progress">
  
      <!-- Card start -->
          <div class="max-w-sm mx-auto bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg">
@@ -44,7 +44,7 @@
                  </div>
                  <div class="flex items-center justify-center gap-2 px-2 ">
                      <a href={`${baseUrl}${user.login}`} target="_blank"><button 
-                         class="flex-1 cursor-progress rounded-full bg-blue-600 dark:bg-blue-800 text-white dark:text-white antialiased font-bold hover:bg-blue-800 dark:hover:bg-blue-900 px-4 py-2">
+                         class="flex-1  rounded-full bg-blue-600 dark:bg-blue-800 text-white dark:text-white antialiased font-bold hover:bg-blue-800 dark:hover:bg-blue-900 px-4 py-2">
                          Follow
                      </button></a>
                      
