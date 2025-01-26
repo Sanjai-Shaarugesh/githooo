@@ -1,5 +1,6 @@
 <script lang='ts'>
 	import '../app.css';
+	import { signOut } from '@auth/sveltekit/client';
 	import {page} from '$app/state'
 	import { afterNavigate } from "$app/navigation";
     import { createMenubar, melt } from '@melt-ui/svelte';
@@ -50,6 +51,11 @@
 			name: 'Login',
 			link: '/login',
 			icon: User
+		},
+		{
+			name:'sanjai.AI',
+			link:'/sanjai.AI',
+			icon: MessageCircle	
 		}
 		
 		
@@ -123,7 +129,16 @@
 	  <!-- Dropdown menu -->
 	  <Dropdown>
 		<div slot="header" class="px-4 py-2">
-			<span><img class="inline-block size-[46px] rounded-full" src={data?.image} alt={data?.name}></span>
+			{#if data?.image}
+			<span>
+				<img class="inline-block size-[46px] rounded-full" src={data?.image} alt={data?.name}>
+			</span>
+			{:else}
+			<span class="inline-flex items-center justify-center size-[46px] rounded-full bg-gray-500 font-semibold text-white leading-none">
+				AC
+			  </span>
+			{/if}
+			
 		  <span class="block mt-4 text-sm text-gray-900 dark:text-white">{data?.name}</span>
 		  <span class="block truncate text-sm font-medium text-gray-500 dark:text-gray-400">
 			{data?.email}
@@ -134,8 +149,9 @@
 		<a href="/users"><DropdownItem>Users</DropdownItem></a>
 		<a href="/"><DropdownItem>Home</DropdownItem></a>
 		<a href="/login"><DropdownItem>Login</DropdownItem></a>
+		<a href="/sanjai.AI"><DropdownItem>sanjai.AI</DropdownItem></a>
 		
-		<DropdownItem slot="footer">Sign out</DropdownItem>
+		<DropdownItem slot="footer" onclick={()=>{signOut()}}>Sign out</DropdownItem>
 		
 	  </Dropdown>
 	  
