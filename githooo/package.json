@@ -68,6 +68,7 @@
 		"mdsvex": "^0.12.3",
 		"preline": "^2.7.0",
 		"remark": "^15.0.1",
+		"simplex-noise": "^4.0.3",
 		"strip-markdown": "^6.0.0",
 		"svelte-hero-icons": "^5.2.0",
 		"svelte-markdown": "^0.4.1",
