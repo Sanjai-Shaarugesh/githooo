@@ -42,6 +42,6 @@ export const load = (async({parent})=>{
      return{
         user: await userInfo(),
         session: await session,
-      follwers : await followers()
+      followers : await followers()
      }
     })
