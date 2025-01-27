@@ -1,16 +1,18 @@
 <script>
   import GradientAnimation from '$lib/components/ui/GradientAnimation/GradientAnimation.svelte';
   import AnimatedTooltip from '$lib/components/ui/AnimatedTooltip/AnimatedTooltip.svelte';
-
+  import Button from '$lib/components/ui/MovingBorder/Button.svelte';
 
   const baseUrl = 'https://github.com/';
   export let data;
+  
   
 
   const user = data.user;
   const info = data.followers;
 
   const User = user.login;
+  const url = `https://github.com/${User}`;
 
    const formattedInfo = info.map((/** @type {{ login: any; avatar_url: any; }} */ follower, /** @type {number} */ index) => ({
     id: index + 1, 
@@ -22,6 +24,11 @@
 
 
 </script>
+
+<svelte:head>
+	<title>githooo</title>
+	<meta name="description" content="welcome to githooo" />
+</svelte:head>
 
 <div class="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-blue-100 to-gray-300 relative">
   <!-- Gradient Animation as the background -->
@@ -86,6 +93,15 @@
         </div>
         <div class="flex ">
           <AnimatedTooltip items={formattedInfo} />
+          <div class='ml-8'>
+            <a href={url} target='_blank'> <Button
+              borderRadius="1.75rem"
+              className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+            >
+             Githuub
+            </Button></a>
+           
+          </div>
         </div>
       </div>
     </div>
