@@ -3,7 +3,7 @@
 
     export let data;
     
-	
+   let link = `https://github.com/${data.users.login}`
 	let isMouseEntered = false;
      
 </script>
@@ -38,22 +38,25 @@
 			/>
 		</CardItem>
 		<div class="mt-20 flex items-center justify-between">
-			<CardItem
+			<a href={link}><CardItem
 				{isMouseEntered}
 				translateZ={20}
 				translateX={-40}
 				className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
 			>
-				Try now →
-			</CardItem>
-			<CardItem
+				view profile
+			</CardItem></a>
+			
+			<a href={link}><CardItem
 				{isMouseEntered}
 				translateZ={20}
 				translateX={40}
 				className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
 			>
-				Sign up
-			</CardItem>
+
+				Like me 
+			</CardItem></a>
+			
 		</div>
 	</CardBody>
 </CardContainer>

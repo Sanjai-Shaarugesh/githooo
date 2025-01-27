@@ -120,7 +120,7 @@
 
   
 	<!-- Dropdown button in the top-right corner -->
-	<div class="absolute top-0 right-0 m-4  bg-blue-500">
+	<div class="absolute top-0 right-0 m-4">
 	  <Button>
 		Dropdown button
 		<ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" />
