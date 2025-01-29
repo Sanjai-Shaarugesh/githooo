@@ -3,10 +3,11 @@ export { handle } from './auth/auth';
 import { SvelteKitAuth } from '@auth/sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
 import * as amp from '@sveltejs/amp';
-import { getServerSession } from '@auth/sveltekit';
+//import { getServerSession } from '@auth/sveltekit';
 
 export const hand: Handle = async ({ event, resolve }) => {
-	const session = await event.locals.auth();
+	//@ts-ignore
+	const session = await event.locals.auth.session();
 	const path = event.url.pathname;
 
 	let buffer = '';
