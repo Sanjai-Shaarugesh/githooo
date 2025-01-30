@@ -1,7 +1,8 @@
 import { redirect } from '@sveltejs/kit';
+import type { LayoutServerLoad } from '../$types';
 
-export const load = async ({ parent }) => {
-	const { session } = await parent();
+export const load:LayoutServerLoad = async (event) => {
+	const session = await event.locals.auth();
 	const RandomUsers = Math.floor(Math.random() * 1000000);
 
 	if (!session?.user) {

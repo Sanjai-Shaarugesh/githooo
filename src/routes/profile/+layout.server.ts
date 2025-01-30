@@ -1,8 +1,8 @@
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import type { LayoutServerLoad } from '../$types';
 
 export const prerender = 'auto';
-export const load:PageServerLoad = async (event) => {
+export const load:LayoutServerLoad = async (event) => {
 	const session = await event.locals.auth();
 	//console.log(session);
 
