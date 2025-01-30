@@ -1,13 +1,10 @@
-// hooks.server.ts
-import { sequence } from '@sveltejs/kit/hooks';
 import { handle as authHandle } from '../src/auth/auth';
 
-// If you need to add custom middleware
-//@ts-ignore
-const customHandle = async ({ event, resolve }) => {
-  // Add any custom middleware logic here before auth
-  return resolve(event);
-};
+export const handle = async ({ event, resolve }) => {
+  // Use SvelteKitAuth's handle to process authentication
+  const response = await authHandle({ event, resolve });
 
-// Export the sequence of handlers
-export const handle = sequence(customHandle, authHandle);
+  // If you want to add additional middleware logic, you can do so here
+
+  return response;
+};

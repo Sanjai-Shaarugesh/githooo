@@ -32,10 +32,10 @@
 	};
 
 	const init = () => {
-		console.log(canvasRef);
+		//console.log(canvasRef);
 		canvas = canvasRef;
 		ctx = canvas.getContext('2d');
-		console.log('ctx', ctx);
+		//console.log('ctx', ctx);
 		w = ctx.canvas.width = window.innerWidth;
 		h = ctx.canvas.height = window.innerHeight;
 		ctx.filter = `blur(${blur}px)`;

@@ -12,14 +12,7 @@
 	const User = user.login;
 	const url = `https://github.com/${User}`;
 
-	const formattedInfo = info.map(
-		(/** @type {{ login: any; avatar_url: any; }} */ follower, /** @type {number} */ index) => ({
-			id: index + 1,
-			name: follower.login,
-			designation: `${User} follower`,
-			image: follower.avatar_url
-		})
-	);
+	//console.log(user)
 </script>
 
 <svelte:head>
@@ -90,19 +83,7 @@
 						<strong class="text-black dark:text-white">{user.followers}</strong> Followers you know
 					</span>
 				</div>
-				<div class="flex">
-					<AnimatedTooltip items={formattedInfo} />
-					<div class="ml-8">
-						<a href={url} target="_blank">
-							<Button
-								borderRadius="1.75rem"
-								className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
-							>
-								Github 🐱
-							</Button></a
-						>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</div>

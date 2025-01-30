@@ -1,10 +1,7 @@
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
 
-export const load:PageServerLoad = async (event) => {
-
-	const session = await event.locals.auth();
-
+export const load = async ({ parent }) => {
+	const { session } = await parent();
 	const RandomUsers = Math.floor(Math.random() * 1000000);
 
 	if (!session?.user) {
