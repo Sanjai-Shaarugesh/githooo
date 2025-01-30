@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: githooo
 
 on:
   push:
@@ -14,19 +14,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install bun
-        uses: bun/action-setup@v2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          version: 8
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: bun
+          bun-version: latest
       - name: Install dependencies
-        run: bun install --frozen-lockfile
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
+        run: bun install
       - name: Build
         run: bun run build
         env:
@@ -40,7 +33,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: githooo
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy
