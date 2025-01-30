@@ -1,8 +1,8 @@
 import { preprocessMeltUI, sequence } from '@melt-ui/pp';
-import adapter from '@sveltejs/adapter-vercel';
+//import adapter from '@sveltejs/adapter-vercel';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { enhancedImages } from '@sveltejs/enhanced-img';
-//import adapter from '@sveltejs/adapter-cloudflare';
+import adapter from '@sveltejs/adapter-cloudflare';
 //import adapter from 'sveltekit-adapter-deno';
 
 //import adapter from '@sveltejs/adapter-netlify';
@@ -21,10 +21,17 @@ const config = {
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 		adapter: adapter({
 			
-			
+			routes: {
+				include: ['/*'],
+				exclude: ['<all>']
+			},
+			platformProxy: {
+				configPath: 'wrangler.toml',
+				environment: undefined,
+				experimentalJsonConfig: false,
+				persist: false
+			}
 		}),
-		inlineStyleThreshold: Infinity,
-
 		
 	}
 };
