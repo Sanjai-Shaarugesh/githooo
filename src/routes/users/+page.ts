@@ -7,7 +7,9 @@ export const load:PageServerLoad = async (event) => {
 
 	const RandomUsers = Math.floor(Math.random() * 1000000);
 
-	
+	if (!session?.user) {
+		throw redirect(303, '/login');
+	}
 	const getRandomUsers = async () => {
 		const res = await fetch(`https://api.github.com/users?since=${RandomUsers}&per_page=50`, {
 			headers: {

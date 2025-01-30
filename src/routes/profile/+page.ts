@@ -5,7 +5,9 @@ export const prerender = 'auto';
 export const load:PageServerLoad = async (event) => {
 	const session = await event.locals.auth();
 
-	
+	if (!session?.user) {
+		throw redirect(303, '/login');
+	}
 	const followers = async () => {
 		const res = await fetch(`https://api.github.com/user/followers`, {
 			headers: {

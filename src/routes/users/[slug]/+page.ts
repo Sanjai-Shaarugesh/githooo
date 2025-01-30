@@ -7,7 +7,9 @@ export const load:PageServerLoad = async ({ fetch, params, parent }) => {
 
 	const { session } = await parent();
 
-	
+	if (!session?.user) {
+		throw redirect(303, '/login');
+	}
 
 	const fetchUsers = async () => {
 		const res = await fetch(`https://api.github.com/users/${username}`, {
