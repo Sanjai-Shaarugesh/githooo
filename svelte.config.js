@@ -32,6 +32,10 @@ const config = {
 				persist: false
 			}
 		}),
+
+		csrf: {
+			checkOrigin: false // Add if you face CSRF errors
+		  }
 		
 	}
 };
