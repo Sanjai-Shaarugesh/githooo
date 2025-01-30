@@ -62,6 +62,11 @@
 			name: 'sanjai.AI',
 			link: '/sanjai.AI',
 			icon: MessageCircle
+		},
+		{
+            name:'about',
+			link: '/about',
+			icon: MessageCircle
 		}
 	];
 
@@ -128,8 +133,12 @@
 			<a href="/profile"><DropdownItem>profile</DropdownItem></a>
 			<a href="/users"><DropdownItem>Users</DropdownItem></a>
 			<a href="/"><DropdownItem>Home</DropdownItem></a>
+			{#if !page.data.session} 
 			<a href="/login"><DropdownItem>Login</DropdownItem></a>
+			{/if}
+			
 			<a href="/sanjai.AI"><DropdownItem>sanjai.AI</DropdownItem></a>
+			<a href="/about"><DropdownItem>about</DropdownItem></a>
 
 			<DropdownItem
 				slot="footer"

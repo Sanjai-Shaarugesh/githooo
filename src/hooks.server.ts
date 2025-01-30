@@ -1,26 +1,10 @@
-export { handle } from './auth/auth';
+import { handle as authHandle } from '../src/auth/auth';
 
-import { SvelteKitAuth } from '@auth/sveltekit';
-import { redirect, type Handle } from '@sveltejs/kit';
-import * as amp from '@sveltejs/amp';
-//import { getServerSession } from '@auth/sveltekit';
+export const handle = async ({ event, resolve }) => {
+  // Use SvelteKitAuth's handle to process authentication
+  const response = await authHandle({ event, resolve });
 
-export const hand: Handle = async ({ event, resolve }) => {
-	//@ts-ignore
-	const session = await event.locals.auth.session();
-	const path = event.url.pathname;
+  // If you want to add additional middleware logic, you can do so here
 
-	let buffer = '';
-
-	const protectedRoutes = ['/profile', '/users'];
-	if (protectedRoutes.some((route) => path.startsWith(route)) && !session) {
-		throw redirect(303, '/login');
-	}
-
-	return await resolve(event, {
-		transformPageChunk: ({ html, done }) => {
-			buffer += html;
-			if (done) return amp.transform(buffer);
-		}
-	});
+  return response;
 };

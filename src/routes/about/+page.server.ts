@@ -1,15 +1,15 @@
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+
 import {GITHUB_PROFILE } from "$env/static/private"
+import type { PageServerData } from '../$types';
+
 
 export const prerender = 'auto';
 
-export const load: PageServerLoad = async (event) => {
+export const load = async (event: { locals: { auth: () => Promise<any> } }) => {
 	const session = await event.locals.auth();
 
-	if(session?.user){
-       throw redirect(303,"/profile")
-	}
+	
 	//console.log(session)
 
 	return {
