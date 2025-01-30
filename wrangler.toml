@@ -1,0 +1,5 @@
+name = "githooo"
+type = "javascript" # or "webpack" or "esmodules", depending on your setup
+account_id = "0abe1404c6685b2936aabcb1eca9c3a4"
+workers_dev = true
+compatibility_date = "2025-01-30" # Use today's date
