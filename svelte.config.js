@@ -5,7 +5,8 @@ import { enhancedImages } from '@sveltejs/enhanced-img';
 //import adapter from '@sveltejs/adapter-cloudflare';
 //import adapter from 'sveltekit-adapter-deno';
 
-import adapter from '@sveltejs/adapter-netlify';
+//import adapter from '@sveltejs/adapter-netlify';
+import adapter from '@sveltejs/adapter-static';
 
 
 /** @type {import('@sveltejs/kit').Config}*/
