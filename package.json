@@ -83,6 +83,7 @@
 		"svelte-kit-sessions": "^0.4.0",
 		"svelte-markdown": "^0.4.1",
 		"svelte-motion": "^0.12.2",
+		"sveltekit-adapter-deno": "^0.16.1",
 		"svgtodatauri": "^0.0.0",
 		"swiper": "^11.2.1",
 		"zod": "^3.24.1"
