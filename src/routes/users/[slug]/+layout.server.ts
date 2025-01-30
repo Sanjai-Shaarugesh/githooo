@@ -14,7 +14,7 @@ export const load: LayoutServerLoad = async ({ fetch, params, locals }) => {
     throw redirect(303, '/login');
   }
 
-  // Fetch user details from GitHub API
+
   const fetchUsers = async () => {
     try {
       const res = await fetch(`https://api.github.com/users/${username}`, {
@@ -32,16 +32,16 @@ export const load: LayoutServerLoad = async ({ fetch, params, locals }) => {
       return res.json();
     } catch (error) {
       console.error('Error fetching GitHub user:', error);
-      throw redirect(303, '/error'); // Redirect to an error page if the fetch fails
+      throw redirect(303, '/error'); 
     }
   };
 
   try {
-    // Fetch the user data and return it
+   
     const users = await fetchUsers();
     return { users };
   } catch (error) {
     console.error('Load function error:', error);
-    throw redirect(303, '/error'); // Handle unexpected errors
+    throw redirect(303, '/error'); 
   }
 };
