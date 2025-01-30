@@ -1,7 +1,9 @@
 import { redirect } from '@sveltejs/kit';
 
 export const load = async (event) => {
+
 	const session = await event.locals.auth();
+	
 	const RandomUsers = Math.floor(Math.random() * 1000000);
 
 	if (!session?.user) {
