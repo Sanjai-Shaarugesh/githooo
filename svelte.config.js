@@ -21,16 +21,7 @@ const config = {
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 		adapter: adapter({
 			
-			routes: {
-				include: ['/*'],
-				exclude: ['<all>']
-			},
-			platformProxy: {
-				configPath: 'wrangler.toml',
-				environment: undefined,
-				experimentalJsonConfig: false,
-				persist: false
-			}
+			
 		}),
 
 		csrf: {
