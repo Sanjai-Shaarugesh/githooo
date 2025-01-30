@@ -1,31 +1,43 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerData } from '../../$types';
 
-//@ts-ignore
-export const load:LayoutServerData = async ({ fetch, params, parent }) => {
-	const username = params.slug;
+export const prerender = false;
 
-	const { session } = await parent();
+export const load = async ({ fetch, params, parent }) => {
+  const username = params.slug;
 
-	if (!session?.user) {
-		throw redirect(303, '/login');
-	}
+  // Retrieve session data from the parent layout
+  const { session } = await parent();
 
-	const fetchUsers = async () => {
-		const res = await fetch(`https://api.github.com/users/${username}`, {
-			headers: {
-				Accept: 'application/vnd.github+json',
-				//@ts-ignore
-				Autorization: `Bearer ${session?.access_token}`,
-				'X-Github-Api-Version': '2022-11-28'
-			}
-		});
+  // If the user is not logged in, redirect to the login page
+  if (!session?.user) {
+    throw redirect(303, '/login');
+  }
 
-		return await res.json();
-	};
+  // Fetch user data from GitHub API
+  const fetchUsers = async () => {
+    const res = await fetch(`https://api.github.com/users/${username}`, {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${session.access_token}`,
+        'X-Github-Api-Version': '2022-11-28'
+      }
+    });
 
-	return {
-		//@ts-ignore
-		users: await fetchUsers()
-	};
+    // Handle errors if the request fails
+    if (!res.ok) {
+      throw new Error(`Failed to fetch user data for ${username}: ${res.statusText}`);
+    }
+
+    return res.json();
+  };
+
+  try {
+    // Fetch user data and return it
+    const users = await fetchUsers();
+    return { users, session };
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw redirect(303, '/error'); // Redirect to an error page if necessary
+  }
 };

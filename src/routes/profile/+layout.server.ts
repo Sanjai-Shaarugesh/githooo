@@ -1,43 +1,44 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from '../$types';
 
-export const prerender = 'auto';
-export const load:LayoutServerLoad = async (event) => {
-	const session = await event.locals.auth();
-	//console.log(session);
+export const prerender = false;
 
-	if (!session?.user) {
-		throw redirect(303, '/login');
-	}
-	const followers = async () => {
-		const res = await fetch(`https://api.github.com/user/followers`, {
-			headers: {
-				Accept: 'application/vnd.github+json',
-				//@ts-ignore
-				Authorization: `Bearer ${session.access_token}`,
-				'X-Github-Api-Version': '2022-11-28'
-			}
-		});
+export const load: LayoutServerLoad = async (event) => {
+  const session = await event.locals.auth();
 
-		return await res.json();
-	};
+  if (!session?.user) {
+    throw redirect(303, '/login');
+  }
 
-	const userInfo = async () => {
-		const res = await fetch(`https://api.github.com/user`, {
-			headers: {
-				Accept: 'application/vnd.github+json',
-				//@ts-ignore
-				Authorization: `Bearer ${session?.access_token}`,
-				'X-Github-Api-Version': '2022-11-28'
-			}
-		});
+  const fetchFollowers = async () => {
+    const res = await fetch(`https://api.github.com/user/followers`, {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${session.access_token}`,
+        'X-Github-Api-Version': '2022-11-28'
+      }
+    });
+    if (!res.ok) throw new Error('Failed to fetch followers');
+    return res.json();
+  };
 
-		return await res.json();
-	};
+  const fetchUserInfo = async () => {
+    const res = await fetch(`https://api.github.com/user`, {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${session.access_token}`,
+        'X-Github-Api-Version': '2022-11-28'
+      }
+    });
+    if (!res.ok) throw new Error('Failed to fetch user info');
+    return res.json();
+  };
 
-	return {
-		user: await userInfo(),
-		session: await session,
-		followers: await followers()
-	};
+  const [user, followers] = await Promise.all([fetchUserInfo(), fetchFollowers()]);
+
+  return {
+    user,
+    session,
+    followers
+  };
 };
