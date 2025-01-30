@@ -1,7 +1,8 @@
 import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
 //@ts-ignore
-export const load = async ({ fetch, params, parent }) => {
+export const load:PageServerLoad = async ({ fetch, params, parent }) => {
 	const username = params.slug;
 
 	const { session } = await parent();
