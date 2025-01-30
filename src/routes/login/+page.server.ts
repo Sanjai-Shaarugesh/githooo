@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import {GITHUB_PROFILE } from "$env/static/private"
 
-export const prerender = 'auto';
+export const prerender = false;
 
 export const load: PageServerLoad = async (event) => {
 	const session = await event.locals.auth();
