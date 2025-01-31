@@ -1,12 +1,38 @@
-<script>
+<script lang='ts'>
 	import { CardItem, CardBody, CardContainer } from '$lib/components/ui/ThreeDCardEffect';
+	import AnimatedTooltip from '$lib/components/ui/AnimatedTooltip/AnimatedTooltip.svelte';
+	import Button from '$lib/components/ui/MovingBorder/Button.svelte';
+	import type { PageData } from './$types';
+	import { Listgroup, ListgroupItem, Avatar } from 'flowbite-svelte';
+  import { TrashBinSolid } from 'flowbite-svelte-icons';
+
 
 	export let data;
 
+	const User = data.users.login;
+	const user = data.users;
+
+	
+
 	let link = `https://github.com/${data.users.login}`;
 	let isMouseEntered = false;
+
+	const info = data.followers;
+
+	const url = `https://github.com/${User}`;
+
+	const formattedInfo = info.map(
+		(/** @type {{ login: any; avatar_url: any; }} */ follower: { login: any; avatar_url: any; }, /** @type {number} */ index: number) => ({
+			id: index + 1,
+			name: follower.login,
+			designation: `${User} follower`,
+			image: follower.avatar_url
+		})
+	);
+
 	
-	
+
+
 </script>
 
 <CardContainer bind:isMouseEntered className="inter-var">
@@ -58,6 +84,26 @@
 					Like me
 				</CardItem></a
 			>
+
+			
 		</div>
 	</CardBody>
 </CardContainer>
+
+
+<Listgroup active class="w-48">
+	<h3 class="p-1 text-center text-xl font-medium text-gray-900 dark:text-white">User list</h3>
+	<ListgroupItem class="text-base font-semibold gap-2">
+	  <Avatar src="/images/profile-picture-1.webp" size="xs" />Jese Leos
+	</ListgroupItem>
+	<ListgroupItem class="text-base font-semibold gap-2">
+	  <Avatar src="/images/profile-picture-2.webp" size="xs" />Robert Gouth
+	</ListgroupItem>
+	<ListgroupItem class="text-base font-semibold gap-2">
+	  <Avatar src="/images/profile-picture-3.webp" size="xs" />Bonnie Green
+	</ListgroupItem>
+	<a href="/" class="flex items-center p-3 text-sm font-medium text-red-600 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-red-500 hover:underline rounded-b-lg">
+	  <TrashBinSolid class="w-6 h-6 ms-1 me-2" />
+	  Delete user
+	</a>
+  </Listgroup>
