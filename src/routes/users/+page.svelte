@@ -7,6 +7,7 @@
 
 	let isMouseEntered = false;
 	export let data;
+	//console.log(data);
 	let vCard = false;
 </script>
 

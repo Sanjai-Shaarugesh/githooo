@@ -4,7 +4,7 @@ import {GITHUB_PROFILE } from "$env/static/private"
 import type { PageServerData } from '../$types';
 
 
-export const prerender = 'auto';
+export const prerender = false;
 
 export const load = async (event: { locals: { auth: () => Promise<any> } }) => {
 	const session = await event.locals.auth();
