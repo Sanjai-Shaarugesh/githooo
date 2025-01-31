@@ -1,31 +1,38 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from '../../$types';
 
-//@ts-ignore
-export const load:LayoutServerLoad = async ({ fetch, params, event }) => {
-	const username = params.slug;
+export const load: LayoutServerLoad = async ({ fetch, params, locals }) => {
+    const username = params.slug;
 
-	const session = await event.locals.auth();
+    const session = await locals.auth(); // Changed 'event' to 'locals'
 
-	if (!session?.user) {
-		throw redirect(303, '/login');
-	}
+    if (!session?.user) {
+        throw redirect(303, '/login');
+    }
 
-	const fetchUsers = async () => {
-		const res = await fetch(`https://api.github.com/users/${username}`, {
-			headers: {
-				Accept: 'application/vnd.github+json',
-				//@ts-ignore
-				Autorization: `Bearer ${session?.access_token}`,
-				'X-Github-Api-Version': '2022-11-28'
-			}
-		});
+    const fetchUsers = async () => {
+        try {
+            const res = await fetch(`https://api.github.com/users/${username}`, {
+                headers: {
+                    'Accept': 'application/vnd.github+json',
+					//@ts-ignore
+                    'Authorization': `Bearer ${session?.access_token}`, // Fixed 'Autorization' typo
+                    'X-Github-Api-Version': '2022-11-28'
+                }
+            });
 
-		return await res.json();
-	};
+            if (!res.ok) {
+                throw new Error(`API request failed with status ${res.status}`);
+            }
 
-	return {
-		//@ts-ignore
-		users: await fetchUsers()
-	};
+            return await res.json();
+        } catch (error) {
+            console.error('Failed to fetch user:', error);
+            return null; // Return null or handle error as needed
+        }
+    };
+
+    return {
+        users: await fetchUsers()
+    };
 };
