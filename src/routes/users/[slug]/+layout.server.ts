@@ -1,79 +1,31 @@
 import { redirect } from '@sveltejs/kit';
-import type { LayoutServerLoad } from '../$types';
+import type { LayoutServerLoad } from '../../$types';
 
-export const prerender = false; // Ensure this route is not statically prerendered
+//@ts-ignore
+export const load:LayoutServerLoad = async ({ fetch, params, event }) => {
+	const username = params.slug;
 
-export const load:LayoutServerLoad = async ({ fetch, params, locals }) => {
-  const username = params.slug; // Extract the username from the URL params
+	const session = await event.locals.auth();
 
-  // Retrieve the session from the parent layout
-  const session = await locals.auth();
+	if (!session?.user) {
+		throw redirect(303, '/login');
+	}
 
-  // Redirect to login if the user is not authenticated
-  if (!session?.user) {
-    throw redirect(303, '/login');
-  }
+	const fetchUsers = async () => {
+		const res = await fetch(`https://api.github.com/users/${username}`, {
+			headers: {
+				Accept: 'application/vnd.github+json',
+				//@ts-ignore
+				Autorization: `Bearer ${session?.access_token}`,
+				'X-Github-Api-Version': '2022-11-28'
+			}
+		});
 
+		return await res.json();
+	};
 
-  const fetchUsers = async () => {
-    try {
-      const res = await fetch(`https://api.github.com/users/${username}`, {
-        headers: {
-          Accept: 'application/vnd.github+json',
-          //@ts-ignore
-          Authorization: `Bearer ${session.access_token}`, 
-          'X-Github-Api-Version': '2022-11-28'
-        }
-      });
-
-      if (!res.ok) {
-        throw new Error(`GitHub API responded with status: ${res.status}`);
-      }
-
-      return res.json();
-    } catch (error) {
-      console.error('Error fetching GitHub user:', error);
-      throw redirect(303, '/error'); 
-    }
-  };
-
-  const fetchFollowers = async() =>{
-
-    try{
-      const res = await fetch(`https://api.github.com/users/${username}/followers`,{
-      headers: {
-        Accept: 'application/vnd.github+json',
-        //@ts-ignore
-        Authorization: `Bearer ${session?.access_token}`,
-        'X-Github-Api-Version': '2022-11-28'
-
-      }
-      
-    });
-    if(!res.ok){
-      throw new Error(`GitHub API responded with status: ${res.status}`);
-    }
-    return res.json();
-  }
-   
-    catch(error){
-      console.error('Error fetching GitHub user:', error);
-      throw redirect(303, '/error');
-    }
-  }
-
-
-  try {
-   
-    const users = await fetchUsers();
-    const followers = await fetchFollowers();
-    return { 
-      users,
-      followers
-     };
-
-  } catch (error) {
-    console.error('Load function error:', error);
-    throw redirect(303, '/error'); 
-  }
+	return {
+		//@ts-ignore
+		users: await fetchUsers()
+	};
 };
