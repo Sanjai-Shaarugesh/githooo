@@ -5,7 +5,8 @@
 
 	let link = `https://github.com/${data.users.login}`;
 	let isMouseEntered = false;
-	console.log(data.randFollowers);
+	
+	
 </script>
 
 <CardContainer bind:isMouseEntered className="inter-var">
