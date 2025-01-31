@@ -20,6 +20,7 @@ export const load: LayoutServerLoad = async ({ fetch, params, locals }) => {
       const res = await fetch(`https://api.github.com/users/${username}`, {
         headers: {
           Accept: 'application/vnd.github+json',
+          //@ts-ignore
           Authorization: `Bearer ${session.access_token}`, // Fixed typo in "Authorization"
           'X-Github-Api-Version': '2022-11-28'
         }
