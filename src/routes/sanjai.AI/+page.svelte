@@ -8,10 +8,11 @@
 	let error: string | null = null;
 	let imageUrl: string | null = null;
 	let previewSrc: string | null = null;
+	let fileType: string | null = null;
+	let fileName: string | null = null;
 
 	async function fetchResponse() {
 		try {
-			// console.log('Sending query:', prompt);
 			const formData = new FormData();
 			formData.append('prompt', prompt);
 
@@ -28,9 +29,7 @@
 
 			if (res.ok) {
 				const data = await res.json();
-
 				responseText = data.text || 'No response';
-
 				imageUrl = data.imageUrl || null;
 				error = null;
 			} else {
@@ -41,7 +40,6 @@
 			}
 		} catch (fetchError) {
 			error = 'Failed to fetch response';
-			// console.error('Fetch error:', fetchError);
 			responseText = '';
 			imageUrl = null;
 		}
@@ -51,6 +49,9 @@
 		const input = event.target as HTMLInputElement;
 		if (input.files && input.files.length > 0) {
 			const file = input.files[0];
+			fileName = file.name;
+			fileType = file.type;
+
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				if (e.target && typeof e.target.result === 'string') {
@@ -61,6 +62,8 @@
 			selectedFiles = input.files;
 		} else {
 			previewSrc = null;
+			fileType = null;
+			fileName = null;
 			selectedFiles = null;
 		}
 	}
@@ -68,26 +71,23 @@
 
 <svelte:head>
 	<title>githooo</title>
-	<meta name="description" content="welcome to githooo" />
+	<meta name="description" content="Welcome to githooo" />
 </svelte:head>
 
-<div
-	class="relative h-screen w-screen overflow-hidden bg-gradient-to-r from-blue-900 via-purple-800 to-black"
->
-	<WavyBackground className="max-w-4xl mx-auto pb-40  ">
-		<p class="inter-var text-center text-2xl font-bold text-white md:text-4xl lg:text-7xl">
-			sanjai.AI
-		</p>
-		<p class="inter-var mt-4 text-center text-base font-normal text-white md:text-lg">
-			Leverage the power of AI to enhance your experience with our advanced chatbot.
-		</p>
+<div class="relative min-h-screen w-full overflow-hidden bg-gradient-to-r from-blue-900 via-purple-800 to-black">
+	<WavyBackground className="max-w-4xl mx-auto pb-20 sm:pb-40">
+		<!-- Header Section -->
+		<header class="text-center">
+			<h1 class="text-2xl font-bold text-white sm:text-4xl lg:text-7xl">sanjai.AI</h1>
+			<p class="mt-4 text-base font-normal text-white sm:text-lg">
+				Leverage the power of AI to enhance your experience with our advanced chatbot.
+			</p>
+		</header>
 
-		<div class="container mx-auto w-full px-4 py-12">
-			<!-- Upload and Query Section -->
-			<div
-				class="mx-auto max-w-xl overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-gray-900"
-			>
-				<div class="p-6">
+		<!-- Main Content Section -->
+		<main class="container mx-auto w-full px-4 py-8 sm:py-12">
+			<div class="mx-auto w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-gray-900">
+				<div class="p-4 sm:p-6">
 					<!-- Query Input -->
 					<div class="mb-4">
 						<input
@@ -108,14 +108,52 @@
 							on:change={handleFileChange}
 							class="hidden"
 						/>
-						<button
-							type="button"
-							class="w-full cursor-pointer rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 p-6 text-center dark:border-gray-700 dark:bg-gray-800"
-							on:click={() => document.getElementById('upload')?.click()}
-							on:keydown={(e) => e.key === 'Enter' && document.getElementById('upload')?.click()}
+						<label
+							for="upload"
+							class="flex w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-400 bg-gray-100 p-4 text-center dark:border-gray-700 dark:bg-gray-800"
 						>
 							{#if previewSrc}
-								<img src={previewSrc} alt="" class="mx-auto max-h-48 rounded-lg" />
+								{#if fileType?.startsWith('image/')}
+									<img src={previewSrc} alt="Preview" class="mx-auto max-h-48 rounded-lg" />
+								{:else if fileType === 'application/pdf'}
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke-width="1.5"
+										stroke="currentColor"
+										class="mx-auto mb-4 h-12 w-12 text-gray-700 dark:text-gray-300"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+										/>
+									</svg>
+									<p class="text-sm font-normal text-gray-700 dark:text-gray-300">{fileName}</p>
+								{:else if fileType?.startsWith('video/')}
+									<video controls class="mx-auto max-h-48 rounded-lg">
+										<source src={previewSrc} type={fileType} />
+										<track kind="captions" src="" label="English" srclang="en" default />
+										Your browser does not support the video tag.
+									</video>
+								{:else}
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke-width="1.5"
+										stroke="currentColor"
+										class="mx-auto mb-4 h-12 w-12 text-gray-700 dark:text-gray-300"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+										/>
+									</svg>
+									<p class="text-sm font-normal text-gray-700 dark:text-gray-300">{fileName}</p>
+								{/if}
 							{:else}
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -132,12 +170,12 @@
 									/>
 								</svg>
 								<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700 dark:text-gray-300">
-									Upload picture
+									Upload file
 								</h5>
 								<p class="text-sm font-normal text-gray-400">File size <b>less than 2mb</b></p>
-								<p class="text-sm font-normal text-gray-400">Formats: <b>JPG, PNG, GIF</b></p>
+								<p class="text-sm font-normal text-gray-400">Formats: <b>JPG, PNG, GIF, PDF, MP4</b></p>
 							{/if}
-						</button>
+						</label>
 					</div>
 
 					<!-- Submit Button -->
@@ -155,16 +193,16 @@
 						<p>{error}</p>
 					</div>
 				{:else if responseText || imageUrl}
-					<div class="rounded-b-2xl border-t border-gray-200 p-6 dark:border-gray-700">
+					<div class="rounded-b-2xl border-t border-gray-200 p-6 dark:border-gray-700 overflow-y-auto max-h-96 scrollbar-hide">
 						{#if responseText}
 							<SvelteMarkdown source={responseText} />
 						{/if}
 						{#if imageUrl}
-							<img src={imageUrl} alt="" class="mt-4 w-full rounded-lg shadow-lg" />
+							<img src={imageUrl} alt="Generated content" class="mt-4 w-full rounded-lg shadow-lg" />
 						{/if}
 					</div>
 				{/if}
 			</div>
-		</div>
+		</main>
 	</WavyBackground>
 </div>

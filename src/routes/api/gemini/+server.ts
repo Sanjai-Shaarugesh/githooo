@@ -14,7 +14,7 @@ export const POST = async ({ request }) => {
 			throw error(400, 'Prompt is required');
 		}
 
-		const model = 'gemini-1.5-flash'; // Use the vision model for image support
+		const model = 'gemini-2.0-flash-exp'; // Use the vision model for image support
 		const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
 
 		const requestBody: any = {

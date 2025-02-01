@@ -88,6 +88,7 @@
 		"sveltekit-adapter-deno": "^0.16.1",
 		"svgtodatauri": "^0.0.0",
 		"swiper": "^11.2.1",
+		"tailwind-scrollbar-hide": "^2.0.0",
 		"zod": "^3.24.1"
 	}
 }
