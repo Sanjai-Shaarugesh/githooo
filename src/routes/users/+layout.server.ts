@@ -12,7 +12,7 @@ export const load:LayoutServerLoad = async (event) => {
 		throw redirect(303, '/login');
 	}
 	const getRandomUsers = async () => {
-		const res = await fetch(`https://api.github.com/users?since=${RandomUsers}&per_page=100`, {
+		const res = await fetch(`https://api.github.com/users?since=${RandomUsers}&per_page=20`, {
 			headers: {
 				Accept: 'application/vnd.github+json',
 				//@ts-ignore
@@ -23,8 +23,14 @@ export const load:LayoutServerLoad = async (event) => {
 
 		const users = await res.json();
 
-		const userDetailsPromise = users.map(async (user:any)=>{
-            const userDetailsRes = await fetch(user.url,{
+		// Check if users is an array before mapping
+		if (!Array.isArray(users)) {
+			console.error('Expected array of users but got:', users);
+			return [];
+		}
+
+		const userDetailsPromise = users.map(async (user: any) => {
+			const userDetailsRes = await fetch(user.url,{
 				headers: {
 					Accept: 'application/vnd.github+json',
 					//@ts-ignore
@@ -32,25 +38,25 @@ export const load:LayoutServerLoad = async (event) => {
 					'X-Github-Api-Version': '2022-11-28'
 				}
 			});
-			 const userDetails = await userDetailsRes.json();
+			const userDetails = await userDetailsRes.json();
 
-			 const reposRes  = await fetch(userDetails.repos_url,{
+			const reposRes  = await fetch(userDetails.repos_url,{
 				headers:{
 					Accept: 'application/vnd.github+json',
 					//@ts-ignore
 					Authorization: `Bearer ${session?.access_token}`,
 					'X-Github-Api-Version': '2022-11-28'
 				}
-			 });
+			});
 
-			 const repos = await reposRes.json();
+			const repos = await reposRes.json();
 
-			 const totalStars = repos.reduce((sum: number, repo: any) => sum + repo.stargazers_count, 0);
+			const totalStars = repos.reduce((sum: number, repo: any) => sum + repo.stargazers_count, 0);
 
-            return {
-                ...userDetails,
-                totalStars // Adding total stars count to user details
-            };
+			return {
+				...userDetails,
+				totalStars // Adding total stars count to user details
+			};
 		});
 
 		const userDetails = await Promise.all(userDetailsPromise);
