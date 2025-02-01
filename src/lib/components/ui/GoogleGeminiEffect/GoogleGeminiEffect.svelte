@@ -15,25 +15,25 @@
 </script>
 
 <div class={cn('sticky top-20', className)}>
-	<p
-		class="bg-gradient-to-b from-neutral-100 to-neutral-300 bg-clip-text pb-4 text-center text-lg font-normal text-transparent md:text-7xl"
-	>
-		{title || `Build with Aceternity UI Svelte`}
-	</p>
-	<p class="mx-auto mt-4 max-w-lg text-center text-xs font-normal text-neutral-400 md:text-xl">
-		{description ||
-			`Scroll this component and see the bottom SVG come to life wow this
-        works!`}
-	</p>
-	<div
-		class="bg-red-transparent absolute -top-60 flex h-[890px] w-full items-center justify-center md:-top-40"
-	>
-		<button
-			class="rounded-ful z-30 mx-auto mt-8 w-fit px-2 py-1 text-xs font-bold text-black md:mt-24 md:px-4 md:py-2 md:text-base"
-		>
-			<img src="/s.png" alt="An alt text" />
-		</button>
-	</div>
+	<div class="relative w-full overflow-hidden">
+		<p class="bg-gradient-to-b from-neutral-100 to-neutral-300 bg-clip-text text-center text-2xl font-normal text-transparent sm:text-4xl md:text-5xl lg:text-7xl p-4">
+		  {title || `Build with Aceternity UI Svelte`}
+		</p>
+	  
+		<p class="mx-auto mt-2 max-w-lg text-center text-sm sm:text-base md:text-lg lg:text-xl font-normal text-neutral-400 px-4">
+		  {description || `Scroll this component and see the bottom SVG come to life wow this works!`}
+		</p>
+	  
+		<div class="relative w-full flex items-center justify-center mt-8 sm:mt-12 md:mt-16 lg:mt-24">
+		  <button class="z-30 rounded-full px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base font-bold text-black">
+			<img 
+			  src="/s.png" 
+			  alt="An alt text"
+			  class="w-auto h-auto max-w-full"
+			/>
+		  </button>
+		</div>
+	  </div>
 	<svg
 		width="1440"
 		height="890"
