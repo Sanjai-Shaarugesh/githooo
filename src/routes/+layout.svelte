@@ -4,6 +4,7 @@
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
 	import { createMenubar, melt } from '@melt-ui/svelte';
+	import { pwaInfo } from 'virtual:pwa-info'; 
 	import {
 		Button,
 		Dropdown,
@@ -29,6 +30,8 @@
 
 	let showScrollText = false;
 
+		
+
 	onMount(() => {
 		const handleScroll = () => {
 			showScrollText = window.scrollY > 100;
@@ -53,11 +56,8 @@
 			link: '/profile',
 			icon: UserPen
 		},
-		{
-			name: 'Login',
-			link: '/login',
-			icon: User
-		},
+		
+		
 		{
 			name: 'sanjai.AI',
 			link: '/sanjai.AI',
@@ -69,7 +69,13 @@
 			icon: Store
 		}
 	];
-
+	if (!page.data.session) {
+		navItems.push({
+			name: 'Login',
+			link: '/login',
+			icon: User
+		});
+	}
 	export function authFun(): string {
 		if (page.data.session) {
 			return 'signOut';
@@ -86,7 +92,34 @@
 
 	let btnClass =
 		'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-xl p-2';
+
+		onMount(async () => {
+    if (pwaInfo) {
+      const { registerSW } = await import('virtual:pwa-register')
+      registerSW({
+        immediate: true,
+        onRegistered(r) {
+          // uncomment following code if you want check for updates
+          // r && setInterval(() => {
+          //    console.log('Checking for sw update')
+          //    r.update()
+          // }, 20000 /* 20s for testing purposes */)
+          console.log(`SW Registered: ${r}`)
+        },
+        onRegisterError(error) {
+          console.log('SW registration error', error)
+        }
+      })
+    }
+  })
+
+		$: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : '' 
 </script>
+
+<svelte:head> 
+ 	{@html webManifestLink} 
+</svelte:head>
+
 
 <div class="relative w-full">
 	<FloatingNavbar {navItems} auth={authFun()} />
