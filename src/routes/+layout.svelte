@@ -19,7 +19,7 @@
 	import { NavbarMenu, HoveredLink, MenuItem, ProductItem } from '../lib/components/ui/NavbarMenu';
 	import { DarkMode } from 'flowbite-svelte';
 
-	import { Home, MessageCircle, User } from 'lucide-svelte';
+	import { Home, MessageCircle, User , ContactRound , UserPen , KeyRound , Store } from 'lucide-svelte';
 	import { FloatingNavbar } from '$lib/components/ui/FloatingNavbar';
 	import { onMount } from 'svelte';
 
@@ -46,12 +46,12 @@
 		{
 			name: 'Users',
 			link: '/users',
-			icon: User
+			icon: ContactRound
 		},
 		{
 			name: 'Profile',
 			link: '/profile',
-			icon: MessageCircle
+			icon: UserPen
 		},
 		{
 			name: 'Login',
@@ -61,12 +61,12 @@
 		{
 			name: 'sanjai.AI',
 			link: '/sanjai.AI',
-			icon: MessageCircle
+			icon: KeyRound
 		},
 		{
             name:'about',
 			link: '/about',
-			icon: MessageCircle
+			icon: Store
 		}
 	];
 
