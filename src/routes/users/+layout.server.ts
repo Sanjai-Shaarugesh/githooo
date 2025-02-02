@@ -12,7 +12,7 @@ export const load:LayoutServerLoad = async (event) => {
 		throw redirect(303, '/login');
 	}
 	const getRandomUsers = async () => {
-		const res = await fetch(`https://api.github.com/users?since=${RandomUsers}&per_page=20`, {
+		const res = await fetch(`https://api.github.com/users?since=${RandomUsers}&per_page=50`, {
 			headers: {
 				Accept: 'application/vnd.github+json',
 				//@ts-ignore

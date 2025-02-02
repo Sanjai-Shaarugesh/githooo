@@ -4,6 +4,7 @@
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
 	import { createMenubar, melt } from '@melt-ui/svelte';
+	//@ts-ignore
 	import { pwaInfo } from 'virtual:pwa-info'; 
 	import {
 		Button,
@@ -95,10 +96,11 @@
 
 		onMount(async () => {
     if (pwaInfo) {
+	  //@ts-ignore
       const { registerSW } = await import('virtual:pwa-register')
       registerSW({
         immediate: true,
-        onRegistered(r) {
+        onRegistered(r: any) {
           // uncomment following code if you want check for updates
           // r && setInterval(() => {
           //    console.log('Checking for sw update')
@@ -106,7 +108,7 @@
           // }, 20000 /* 20s for testing purposes */)
           console.log(`SW Registered: ${r}`)
         },
-        onRegisterError(error) {
+        onRegisterError(error: any) {
           console.log('SW registration error', error)
         }
       })
@@ -189,13 +191,13 @@
 	<slot />
 
 	<div
-		class="fixed bottom-0 left-0 right-0 p-8 text-center transition-all duration-500 ease-in-out"
+		class="fixed bottom-5 left-0 right-0 p-8 text-center transition-all duration-500 ease-in-out"
 		class:opacity-100={showScrollText}
 		class:opacity-0={!showScrollText}
 		class:translate-y-0={showScrollText}
 		class:translate-y-10={!showScrollText}
 	>
-		<p class="text-4xl font-bold text-neutral-600 dark:text-white">
+		<p class="text-2xl font-bold text-neutral-600 dark:text-white">
 			Scroll back up to reveal Navbar
 		</p>
 		<p class="mt-2 text-lg text-neutral-500 dark:text-gray-400">Keep scrolling to explore more!</p>

@@ -50,7 +50,24 @@ export const load: LayoutServerLoad = async ({ fetch, params, locals }) => {
     }
   };
 
-
+const repo = async () =>{
+  try{
+    const res = await fetch(`https://api.github.com/users/${username}/repos`,{
+      headers:{
+        Accept: 'application/vnd.github+json',
+        //@ts-ignore
+        Authorization: `Bearer ${session.access_token}`,
+        'X-Github-Api-Version': '2022-11-28'
+      }
+    });
+    if(!res.ok) throw new Error('Failed to fetch repos');
+    return res.json();
+  }
+  catch(error){
+    console.error('Error fetching GitHub user:', error);
+    throw redirect(303, '/error');
+  }
+}
   
   
 
@@ -59,11 +76,13 @@ export const load: LayoutServerLoad = async ({ fetch, params, locals }) => {
    
     const users = await fetchUsers();
     const followers = await fetchFollowers();
+    const repos = await repo();
 
     return { 
       users,
       followers,
-      name
+      name,
+      repos
      };
   } catch (error) {
     console.error('Load function error:', error);
