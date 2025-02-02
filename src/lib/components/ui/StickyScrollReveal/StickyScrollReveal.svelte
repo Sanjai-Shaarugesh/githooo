@@ -70,7 +70,7 @@
   <div
 	bind:this={ref}
 	style="background-color: {backgroundColors[activeCard % backgroundColors.length]}"
-	class="relative flex h-[30rem] justify-center space-x-10 overflow-y-auto rounded-md p-10 transition ease-in-out"
+	class="relative flex h-[30rem] justify-center space-x-10 overflow-y-auto rounded-md p-10 transition ease-in-out  max-h-96 scrollbar-hide"
   >
 	<div class="div relative flex items-start px-4">
 	  <div class="max-w-2xl">

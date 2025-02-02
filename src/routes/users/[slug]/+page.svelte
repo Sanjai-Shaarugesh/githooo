@@ -37,10 +37,7 @@
 	  repos: RepoData[];
 	};
 
-	//const repoUrl = `https://github.com/${data.users.login}/${data.repos}`
-     
-	//console.log(data.repos.map(repo => repo.visibility));
-
+	
 	
   
 	let link = `https://github.com/${data.users.login}`;
@@ -137,6 +134,6 @@
 	</Listgroup>
   </div>
   
-  <div class="p-10">
+  <div class="p-10 ">
 	<StickyScrollReveal content={content.map(item => ({ ...item, visibility: item.mode }))} />
   </div>
