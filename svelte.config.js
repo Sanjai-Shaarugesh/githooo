@@ -23,6 +23,9 @@ const config = {
 			
 			
 		}),
+		serviceWorker: {
+			register: false
+		  },
 
 		csrf: {
 			checkOrigin: false // Add if you face CSRF errors

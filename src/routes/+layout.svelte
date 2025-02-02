@@ -4,6 +4,8 @@
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
 	import { createMenubar, melt } from '@melt-ui/svelte';
+	//@ts-ignore
+	import { pwaInfo } from 'virtual:pwa-info'; 
 	import {
 		Button,
 		Dropdown,
@@ -29,6 +31,8 @@
 
 	let showScrollText = false;
 
+		
+
 	onMount(() => {
 		const handleScroll = () => {
 			showScrollText = window.scrollY > 100;
@@ -53,11 +57,8 @@
 			link: '/profile',
 			icon: UserPen
 		},
-		{
-			name: 'Login',
-			link: '/login',
-			icon: User
-		},
+		
+		
 		{
 			name: 'sanjai.AI',
 			link: '/sanjai.AI',
@@ -69,7 +70,13 @@
 			icon: Store
 		}
 	];
-
+	if (!page.data.session) {
+		navItems.push({
+			name: 'Login',
+			link: '/login',
+			icon: User
+		});
+	}
 	export function authFun(): string {
 		if (page.data.session) {
 			return 'signOut';
@@ -86,7 +93,35 @@
 
 	let btnClass =
 		'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-xl p-2';
+
+		onMount(async () => {
+    if (pwaInfo) {
+	  //@ts-ignore
+      const { registerSW } = await import('virtual:pwa-register')
+      registerSW({
+        immediate: true,
+        onRegistered(r: any) {
+          // uncomment following code if you want check for updates
+          // r && setInterval(() => {
+          //    console.log('Checking for sw update')
+          //    r.update()
+          // }, 20000 /* 20s for testing purposes */)
+         // console.log(`SW Registered: ${r}`)
+        },
+        onRegisterError(error: any) {
+         // console.log('SW registration error', error)
+        }
+      })
+    }
+  })
+
+		$: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : '' 
 </script>
+
+<svelte:head> 
+ 	{@html webManifestLink} 
+</svelte:head>
+
 
 <div class="relative w-full">
 	<FloatingNavbar {navItems} auth={authFun()} />
@@ -156,13 +191,13 @@
 	<slot />
 
 	<div
-		class="fixed bottom-0 left-0 right-0 p-8 text-center transition-all duration-500 ease-in-out"
+		class="fixed bottom-5 left-0 right-0 p-8 text-center transition-all duration-500 ease-in-out"
 		class:opacity-100={showScrollText}
 		class:opacity-0={!showScrollText}
 		class:translate-y-0={showScrollText}
 		class:translate-y-10={!showScrollText}
 	>
-		<p class="text-4xl font-bold text-neutral-600 dark:text-white">
+		<p class="text-2xl font-bold text-neutral-600 dark:text-white">
 			Scroll back up to reveal Navbar
 		</p>
 		<p class="mt-2 text-lg text-neutral-500 dark:text-gray-400">Keep scrolling to explore more!</p>

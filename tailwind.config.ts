@@ -4,7 +4,8 @@ import type { Config } from 'tailwindcss';
 import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette';
 import svgToDataUri from 'mini-svg-data-uri';
 import aspectRatio from '@tailwindcss/aspect-ratio';
-import scrollbarHide from 'tailwind-scrollbar-hide'
+import scrollbarHide from 'tailwind-scrollbar-hide';
+
 
 const config: Config = {
 	darkMode: 'class', // or 'selector' if you prefer
