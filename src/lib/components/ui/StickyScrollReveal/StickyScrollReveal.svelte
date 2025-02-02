@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { ButtonGroup, Button, GradientButton } from 'flowbite-svelte';
+	import { ButtonGroup, Button, GradientButton, Rating } from 'flowbite-svelte';
+	import {goto} from '$app/navigation';
+	import { redirect } from '@sveltejs/kit';
+	import {AdvancedRating} from 'flowbite-svelte';
+	import { Badge } from 'flowbite-svelte';
+
+
+	function redirectTo(url: string) {
+		window.open(url, '_blank');; // Redirects to the specified URL
+  }
   
 	let activeCard = 0;
 	let backgroundColors = ['var(--slate-900)', 'var(--black)', 'var(--neutral-900)'];
@@ -12,18 +21,25 @@
 	let scrollYProgress = 0;
   
 	export let content: {
+		 [x: string]: any;
+		 visibility: any;
+		 forks: any;
 		 repo: any;
 		 repo_url: string | null | undefined; title: string; description: string 
 }[] = [
 	  {
 		  title: 'Title 1', description: 'Description 1',
 		  repo: undefined,
-		  repo_url: undefined
+		  repo_url: undefined,
+		  visibility: undefined,
+		  forks: undefined
 	  },
 	  {
 		  title: 'Title 2', description: 'Description 2',
 		  repo: undefined,
-		  repo_url: undefined
+		  repo_url: undefined,
+		  visibility: undefined,
+		  forks: undefined
 	  }
 	  // Add more items as needed
 	];
@@ -72,12 +88,16 @@
 			>
 			  {item.description}
 			</p>
+
+			
+			<Rating id="example-1b" total={5} size={50} rating={item.forks} />
+			<Badge large color="yellow">forks Rating</Badge>
 			<div class="py-4">Outline</div>
   <ButtonGroup>
-	<Button outline color="red">{item.repo}</Button>
+	<Button outline color="red" onclick={()=>redirectTo(`${item.repo_url}`)}>click to open repo</Button>
     
-    <Button outline color="green">Settings</Button>
-    <Button outline color="yellow">Messages</Button>
+    <Button outline color="green" >{item.default_branch}</Button>
+    <Button outline color="yellow">{item.visibility}</Button>
   </ButtonGroup>
 		  </div>
 		{/each}

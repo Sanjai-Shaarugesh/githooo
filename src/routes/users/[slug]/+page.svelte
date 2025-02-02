@@ -1,15 +1,22 @@
 <script lang="ts">
 	interface RepoData {
+	  default_branch: any;
+	  visibility: any;
+	  forks: any;
+	  clone_url: any;
 	  html_url: any;
 	  name: string;
 	  description: string;
 	}
   
 	interface ContentItem {
+	  forks: any;
+	  mode: any;
 	  title: string;
 	  description: string;
 	  repo:string,
 	  repo_url:string
+	  
 	}
   
 	import { CardItem, CardBody, CardContainer } from '$lib/components/ui/ThreeDCardEffect';
@@ -29,6 +36,12 @@
 	  }[];
 	  repos: RepoData[];
 	};
+
+	//const repoUrl = `https://github.com/${data.users.login}/${data.repos}`
+     
+	//console.log(data.repos.map(repo => repo.visibility));
+
+	
   
 	let link = `https://github.com/${data.users.login}`;
 	let isMouseEntered = false;
@@ -42,7 +55,10 @@
 		title: repo.name,
 		description: repo.description || '', // Handle potential undefined
         repo:  repo.name,
-		repo_url: repo.html_url
+		repo_url: repo.html_url,
+		forks: repo.forks,
+		mode: repo.visibility,
+		default_branch: repo.default_branch,
 	  }));
 	}
   
@@ -122,5 +138,5 @@
   </div>
   
   <div class="p-10">
-	<StickyScrollReveal {content} />
+	<StickyScrollReveal content={content.map(item => ({ ...item, visibility: item.mode }))} />
   </div>
