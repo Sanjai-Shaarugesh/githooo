@@ -180,10 +180,10 @@
 					<button
 						class="carousel__cell"
 						aria-label="Carousel item {i + 1}"
-						on:click|preventDefault={() => handleCellClick(i)}
+						on:click={() => handleCellClick(i)}
 						on:keydown={(e) => handleKeyDown(e, i)}
 					>
-						<a href={`/users/${user.login}`}>
+						<a href={`/users/${user.login}`} target="_blank">
 							<img 
 								class="carousel__cell" 
 								src={user.avatar_url} 
