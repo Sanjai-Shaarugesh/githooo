@@ -67,15 +67,7 @@
 				padding: 1.5rem !important;
 					}
   
-					.mobile-stack {
-				flex-direction: column;
-				gap: 1rem;
-					}
-  
-					.avatar-image {
-				height: 35vh !important;
-				min-height: 250px !important;
-					}
+					
 			}
   
 			:global(.scrollbar-hide) {
@@ -94,50 +86,57 @@
 	<div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
 	  <!-- Left Column -->
 	  <div class="lg:col-span-2">
-		<CardContainer bind:isMouseEntered className="inter-var w-full">
-		  <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full h-auto rounded-xl p-6 border">
-			<CardItem
-			  translateZ="50"
-			  className="text-xl font-bold text-neutral-600 dark:text-white"
+		<CardContainer bind:isMouseEntered className="inter-var">
+			<CardBody
+				className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  "
 			>
-			  {data.users.login}
-			</CardItem>
-  
-			<CardItem
-			  translateZ="60"
-			  className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
-			>
-			  {data.users.email}
-			</CardItem>
-  
-			<CardItem translateZ="100" rotateX={20} rotateZ={-10} className="w-full mt-4">
-			  <img
-				src={data.users.avatar_url}
-				class="avatar-image h-48 w-full object-cover group-hover/card:shadow-xl rounded-xl"
-				alt="Profile thumbnail"
-			  />
-			</CardItem>
-  
-			<div class="mt-6 sm:mt-10 mobile-stack flex items-center justify-between">
-			  <a href={link} class="w-full sm:w-auto">
 				<CardItem
-				  translateZ={20}
-				  className="w-full px-4 py-2 rounded-xl text-xs font-normal dark:text-white bg-gray-200 dark:bg-gray-800 text-center"
+					{isMouseEntered}
+					translateZ="50"
+					className="text-xl font-bold text-neutral-600 dark:text-white"
 				>
-				  View Profile
+				{data.users.login}
 				</CardItem>
-			  </a>
-  
-			  <a href={link} class="w-full sm:w-auto">
 				<CardItem
-				  translateZ={20}
-				  className="w-full px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold text-center"
+					{isMouseEntered}
+					translateZ="60"
+					className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
 				>
-				  Like Me
+				{data.users.email}
 				</CardItem>
-			  </a>
-			</div>
-		  </CardBody>
+				<CardItem {isMouseEntered} translateZ="100" rotateX={20} rotateZ={-10} className="w-full mt-4">
+					<img
+						src={data.users.avatar_url}
+						height="1000"
+						width="1000"
+						class="h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl"
+						alt="thumbnail"
+					/>
+				</CardItem>
+				<div class="mt-20 flex items-center justify-between">
+
+					<a href={link} class="w-full sm:w-auto">
+					<CardItem
+						{isMouseEntered}
+						translateZ={20}
+						translateX={-40}
+						className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+					>
+						Like me →
+					</CardItem>
+					</a>
+
+					<a href={link} class="w-full sm:w-auto"><CardItem
+						{isMouseEntered}
+						translateZ={20}
+						translateX={40}
+						className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+					>
+						View Profile
+					</CardItem></a>
+					
+				</div>
+			</CardBody>
 		</CardContainer>
 	  </div>
   
