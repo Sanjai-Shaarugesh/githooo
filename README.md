@@ -54,7 +54,7 @@ If you encounter any issues or have suggestions, feel free to open an issue in t
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://raw.githubusercontent.com/Sanjai-Shaarugesh/githooo/refs/heads/main/LICENSE) file for details.
 
 ---
 
