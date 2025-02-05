@@ -47,6 +47,8 @@ export const POST = async ({ request }) => {
             const creatorKeywords = ['who made you', 'who created you'];
             const companyKeywords = ['which company created you'];
 			const creatorsKeywords = ['who created you'];
+			const CreatorKeywords = ['which created you'];
+			const aCreatorKeywords = ['where created you'];
 
             if (creatorKeywords.some((keyword) => input.toLowerCase().includes(keyword))) {
                 return 'I was created by Sanjai.';
@@ -55,6 +57,15 @@ export const POST = async ({ request }) => {
             }
 			else if (creatorsKeywords.some((keyword) => input.toLowerCase().includes(keyword))) {
                 return 'I was created by Sanjai, who is associated with shaaru.';
+            }
+			else if (CreatorKeywords.some((keyword) => input.toLowerCase().includes(keyword))) {
+                return 'I was created by Sanjai, who is associated with shaaru.';
+            }
+			else if (aCreatorKeywords.some((keyword) => input.toLowerCase().includes(keyword))) {
+                return 'I was created by Sanjai, who is associated with shaaru.';
+            }
+            else {
+                return null;
             }
             return null;
         };
