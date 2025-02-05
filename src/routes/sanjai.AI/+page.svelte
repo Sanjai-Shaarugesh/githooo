@@ -24,23 +24,18 @@
                 }
             }
 
-            // Polling mechanism to simulate active updates
-            const interval = setInterval(async () => {
-                const res = await fetch('/api/gemini', {
-                    method: 'POST',
-                    body: formData
-                });
+            const res = await fetch('/api/gemini', {
+                method: 'POST',
+                body: formData
+            });
 
-                if (res.ok) {
-                    const data = await res.json();
-                    responseText += data.text || ''; // Append partial response
-                    clearInterval(interval); // Stop polling when response is complete
-                } else {
-                    const errorData = await res.json();
-                    error = errorData.error || 'An error occurred';
-                    clearInterval(interval); // Stop polling on error
-                }
-            }, 500); // Poll every 500ms
+            if (res.ok) {
+                const data = await res.json();
+                responseText = data.text || 'No response';
+            } else {
+                const errorData = await res.json();
+                error = errorData.error || 'An error occurred';
+            }
         } catch (fetchError) {
             error = 'Failed to fetch response';
             responseText = '';
@@ -57,7 +52,6 @@
 
             // Handle different file types for preview
             if (file.type.startsWith('image/')) {
-                // Image files
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     if (e.target && typeof e.target.result === 'string') {
@@ -66,16 +60,12 @@
                 };
                 reader.readAsDataURL(file);
             } else if (file.type.startsWith('video/')) {
-                // Video files
                 previewSrc = URL.createObjectURL(file);
             } else if (file.type.startsWith('audio/')) {
-                // Audio files
                 previewSrc = URL.createObjectURL(file);
             } else if (file.type === 'application/pdf') {
-                // PDF files
                 previewSrc = URL.createObjectURL(file);
             } else {
-                // Unsupported file types (e.g., text, zip, etc.)
                 previewSrc = null;
             }
 
@@ -101,14 +91,15 @@
 </script>
 
 <svelte:head>
-    <title>githooo</title>
-    <meta name="description" content="Welcome to githooo" />
+    <title>Sanjai.AI</title>
+    <meta name="description" content="A powerful AI chatbot created by Sanjai." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </svelte:head>
 
 <div class="relative min-h-screen w-full overflow-hidden bg-gradient-to-r from-blue-900 via-purple-800 to-black">
     <WavyBackground className="max-w-4xl mx-auto pb-20 sm:pb-40">
-        <header class="text-center">
-            <h1 class="text-2xl font-bold text-white sm:text-4xl lg:text-7xl">sanjai.AI</h1>
+        <header class="text-center px-4">
+            <h1 class="text-2xl font-bold text-white sm:text-4xl lg:text-7xl">Sanjai.AI</h1>
             <p class="mt-4 text-base font-normal text-white sm:text-lg">
                 Leverage the power of AI to enhance your experience with our advanced chatbot.
             </p>
@@ -199,13 +190,13 @@
                     <div class="flex justify-between space-x-4">
                         <button
                             on:click={fetchResponse}
-                            class="w-full rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 font-bold text-white shadow-md transition duration-300 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                            class="w-full rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 font-bold text-white shadow-md transition duration-300 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 active:scale-95"
                         >
-                            Ask sanjai
+                            Ask Sanjai
                         </button>
                         <button
                             on:click={clearChat}
-                            class="w-full rounded-lg bg-red-500 px-6 py-3 font-bold text-white shadow-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                            class="w-full rounded-lg bg-red-500 px-6 py-3 font-bold text-white shadow-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 active:scale-95"
                         >
                             Clear Chat
                         </button>
