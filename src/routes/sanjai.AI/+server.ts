@@ -1,12 +1,22 @@
+import type { RequestHandler } from './$types';
 
-export async function GET({ locals }) {
-    //@ts-ignore
-    const session = locals.session;
-  
+export const GET: RequestHandler = async ({ locals }) => {
+    const { session } = locals;
+    
+    
     if (!session) {
-      return new Response('Unauthorized', { status: 401 });
+        return new Response('Unauthorized', { 
+            status: 401,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
     }
-  
-    return new Response(JSON.stringify(session), { status: 200 });
-  }
-  
+    
+    return new Response(JSON.stringify(session), { 
+        status: 200,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+};

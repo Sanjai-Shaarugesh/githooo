@@ -3,8 +3,9 @@ import type { LayoutServerLoad } from '../$types';
 
 export const prerender = false;
 
-export const load:LayoutServerLoad = async (event) => {
-	const session = await event.locals.auth();
+export const load:LayoutServerLoad = async ({locals}) => {
+	const session = await locals.getSession();
+	
 
 	const RandomUsers = Math.floor(Math.random() * 100000);
 
@@ -15,8 +16,8 @@ export const load:LayoutServerLoad = async (event) => {
 		const res = await fetch(`https://api.github.com/users?since=${RandomUsers}&per_page=50`, {
 			headers: {
 				Accept: 'application/vnd.github+json',
-				//@ts-ignore
-				Authorization: `Bearer ${session?.access_token}`,
+
+				Authorization: `Bearer ${session.accessToken}`,
 				'X-Github-Api-Version': '2022-11-28'
 			}
 		});
@@ -29,12 +30,21 @@ export const load:LayoutServerLoad = async (event) => {
 			return [];
 		}
 
-		const userDetailsPromise = users.map(async (user: any) => {
+		interface GithubUser {
+			url: string;
+			repos_url: string;
+		}
+
+		interface GithubRepo {
+			stargazers_count: number;
+		}
+
+		const userDetailsPromise = users.map(async (user: GithubUser) => {
 			const userDetailsRes = await fetch(user.url,{
 				headers: {
 					Accept: 'application/vnd.github+json',
-					//@ts-ignore
-					Authorization: `Bearer ${session?.access_token}`,
+
+					Authorization: `Bearer ${session.accessToken}`,
 					'X-Github-Api-Version': '2022-11-28'
 				}
 			});
@@ -43,19 +53,19 @@ export const load:LayoutServerLoad = async (event) => {
 			const reposRes  = await fetch(userDetails.repos_url,{
 				headers:{
 					Accept: 'application/vnd.github+json',
-					//@ts-ignore
-					Authorization: `Bearer ${session?.access_token}`,
+
+					Authorization: `Bearer ${session.accessToken}`,
 					'X-Github-Api-Version': '2022-11-28'
 				}
 			});
 
 			const repos = await reposRes.json();
 
-			const totalStars = repos.reduce((sum: number, repo: any) => sum + repo.stargazers_count, 0);
+			const totalStars = repos.reduce((sum: number, repo: GithubRepo) => sum + repo.stargazers_count, 0);
 
 			return {
 				...userDetails,
-				totalStars // Adding total stars count to user details
+				totalStars 
 			};
 		});
 
@@ -63,7 +73,7 @@ export const load:LayoutServerLoad = async (event) => {
 
 
 
-		//@ts-ignore
+
 		return userDetails.sort((a,b)=>{
 			if(b.followers === a.followers){
 				return b.totalStars - a.totalStars;
@@ -72,14 +82,14 @@ export const load:LayoutServerLoad = async (event) => {
 			return b.followers - a.followers;
 		})
 
-		
+
 	};
 
 
 	return {
-          RandomUsers : await getRandomUsers()
+										RandomUsers : await getRandomUsers()
 	}
 
 
-	
+
 };

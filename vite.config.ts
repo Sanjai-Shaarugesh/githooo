@@ -7,12 +7,13 @@ export default defineConfig({
     plugins: [
         sveltekit(),
         enhancedImages(),
+        
         VitePWA({
             registerType: 'autoUpdate', // Automatically update the service worker
             includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'], // Static assets to cache
             manifest: {
-                name: 'Sanjai-Notes',
-                short_name: 'Sanjai-Notes',
+                name: 'githooo',
+                short_name: 'githooo',
                 description: 'A powerful AI chatbot created by Sanjai.',
                 theme_color: '#ffffff',
                 background_color: '#ffffff',

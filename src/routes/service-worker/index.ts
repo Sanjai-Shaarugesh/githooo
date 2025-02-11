@@ -1,9 +1,11 @@
 /// <reference types="@sveltejs/kit" />
+/// <reference no-default-lib="true"/>
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
 
-// @ts-nocheck
 import { build, files, version } from '$service-worker';
 
-// Create a unique cache name for this deployment
+const worker = self as unknown as ServiceWorkerGlobalScope;
 const CACHE = `cache-${version}`;
 
 const ASSETS = [
@@ -11,7 +13,7 @@ const ASSETS = [
     ...files  // everything in `static`
 ];
 
-self.addEventListener('install', (event) => {
+worker.addEventListener('install', (event) => {
     // Create a new cache and add all files to it
     async function addFilesToCache() {
         const cache = await caches.open(CACHE);
@@ -21,7 +23,7 @@ self.addEventListener('install', (event) => {
     event.waitUntil(addFilesToCache());
 });
 
-self.addEventListener('activate', (event) => {
+worker.addEventListener('activate', (event) => {
     // Remove previous cached data from disk
     async function deleteOldCaches() {
         for (const key of await caches.keys()) {
@@ -32,7 +34,7 @@ self.addEventListener('activate', (event) => {
     event.waitUntil(deleteOldCaches());
 });
 
-self.addEventListener('fetch', (event) => {
+worker.addEventListener('fetch', (event) => {
     // ignore POST requests etc
     if (event.request.method !== 'GET') return;
 
@@ -42,7 +44,8 @@ self.addEventListener('fetch', (event) => {
 
         // `build`/`files` can always be served from the cache
         if (ASSETS.includes(url.pathname)) {
-            return cache.match(url.pathname);
+            const response = await cache.match(url.pathname);
+            if (response) return response;
         }
 
         // for everything else, try the network first, but
@@ -56,7 +59,10 @@ self.addEventListener('fetch', (event) => {
 
             return response;
         } catch {
-            return cache.match(event.request);
+            const response = await cache.match(event.request);
+            if (response) return response;
+            
+            throw new Error('Offline and no cached response available');
         }
     }
 

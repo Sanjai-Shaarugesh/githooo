@@ -24,7 +24,7 @@
                 }
             }
 
-            const res = await fetch('/api/gemini', {
+            const res = await fetch('/api/AI', {
                 method: 'POST',
                 body: formData
             });

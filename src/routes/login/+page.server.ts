@@ -4,13 +4,13 @@ import {GITHUB_PROFILE } from "$env/static/private"
 
 export const prerender = false;
 
-export const load: PageServerLoad = async (event) => {
-	const session = await event.locals.auth();
+export const load: PageServerLoad = async ({locals}) => {
+	const session = await locals.getSession();
 
 	if(session?.user){
        throw redirect(303,"/profile")
 	}
-	//console.log(session)
+	
 
 	return {
 		session: session,

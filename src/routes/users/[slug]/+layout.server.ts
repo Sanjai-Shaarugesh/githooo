@@ -19,8 +19,8 @@ export const load: LayoutServerLoad = async ({ fetch, params, locals }) => {
     const res = await fetch(`https://api.github.com/users/${username}/followers`, {
       headers: {
         Accept: 'application/vnd.github+json',
-		     //@ts-ignore
-        Authorization: `Bearer ${session.access_token}`,
+		    
+        Authorization: `Bearer ${session.accessToken}`,
         'X-Github-Api-Version': '2022-11-28'
       }
     });
@@ -33,8 +33,8 @@ export const load: LayoutServerLoad = async ({ fetch, params, locals }) => {
       const res = await fetch(`https://api.github.com/users/${username}`, {
         headers: {
           Accept: 'application/vnd.github+json',
-		  //@ts-ignore
-          Authorization: `Bearer ${session.access_token}`, // Fixed typo in "Authorization"
+		  
+          Authorization: `Bearer ${session.accessToken}`, // Fixed typo in "Authorization"
           'X-Github-Api-Version': '2022-11-28'
         }
       });
@@ -55,8 +55,8 @@ const repo = async () =>{
     const res = await fetch(`https://api.github.com/users/${username}/repos`,{
       headers:{
         Accept: 'application/vnd.github+json',
-        //@ts-ignore
-        Authorization: `Bearer ${session.access_token}`,
+        
+        Authorization: `Bearer ${session.accessToken}`,
         'X-Github-Api-Version': '2022-11-28'
       }
     });
