@@ -46,7 +46,7 @@ export const POST = async ({ request }: { request: Request }) => {
 								const keywordCheck = (input: string) => {
 												const creatorKeywords = ['who made you', 'who created you'];
 												const companyKeywords = ['which company created you'];
-			const creatorsKeywords = ['who created you'];
+			const creatorsKeywords = ['who created you','who build you','who developed you','who develope you'];
 			const CreatorKeywords = ['which created you'];
 			const aCreatorKeywords = ['where created you'];
 
