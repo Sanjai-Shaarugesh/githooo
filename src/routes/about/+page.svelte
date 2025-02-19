@@ -1,6 +1,10 @@
 <script>
 
 	import { PinContainer } from "$lib/components/ui/ThreeDPin";
+    import { injectAnalytics } from '@vercel/analytics/sveltekit'
+
+
+	injectAnalytics()
     
     export let data;
 	const link = data.githubProfile;

@@ -4,10 +4,13 @@
 	import { ArrowRightOutline } from 'flowbite-svelte-icons';
 	import { CardItem, CardBody, CardContainer } from '$lib/components/ui/ThreeDCardEffect';
 	import { Users } from 'lucide-svelte';
+	import { injectAnalytics } from '@vercel/analytics/sveltekit'
 
 	let isMouseEntered = false;
 	export let data;
 	let vCard = false;
+
+	injectAnalytics()
 </script>
 
 <svelte:head>

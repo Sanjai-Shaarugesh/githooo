@@ -1,14 +1,17 @@
 <script lang="ts">
     import SvelteMarkdown from 'svelte-markdown';
     import { WavyBackground } from '$lib/components/ui/WavyBackground';
+    import { injectAnalytics } from '@vercel/analytics/sveltekit'
 
-    let prompt = '';
+    let prompt = $state('');
     let selectedFiles: FileList | null = null;
-    let responseText: string = '';
-    let error: string | null = null;
-    let previewSrc: string | null = null;
-    let fileType: string | null = null;
-    let fileName: string | null = null;
+    let responseText: string = $state('');
+    let error: string | null = $state(null);
+    let previewSrc: string | null = $state(null);
+    let fileType: string | null = $state(null);
+    let fileName: string | null = $state(null);
+
+    injectAnalytics()
 
     // Function to fetch AI response
     async function fetchResponse() {
@@ -123,7 +126,7 @@
                             type="file"
                             multiple
                             name="files"
-                            on:change={handleFileChange}
+                            onchange={handleFileChange}
                             class="hidden"
                         />
                         <label
@@ -189,13 +192,13 @@
                     <!-- Submit Button -->
                     <div class="flex justify-between space-x-4">
                         <button
-                            on:click={fetchResponse}
+                            onclick={fetchResponse}
                             class="w-full rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 font-bold text-white shadow-md transition duration-300 hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 active:scale-95"
                         >
                             Ask Sanjai
                         </button>
                         <button
-                            on:click={clearChat}
+                            onclick={clearChat}
                             class="w-full rounded-lg bg-red-500 px-6 py-3 font-bold text-white shadow-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 active:scale-95"
                         >
                             Clear Chat

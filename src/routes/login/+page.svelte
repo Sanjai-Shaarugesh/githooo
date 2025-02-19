@@ -3,6 +3,9 @@
 	import { signIn } from '@auth/sveltekit/client';
 	import { PinContainer } from '$lib/components/ui/ThreeDPin';
 	import { page } from '$app/state';
+    import { injectAnalytics } from '@vercel/analytics/sveltekit'
+
+    injectAnalytics()
 	export let data;
 	const link = data.githubProfile;
 	//console.log(page)

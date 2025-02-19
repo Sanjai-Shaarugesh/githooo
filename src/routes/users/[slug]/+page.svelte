@@ -18,9 +18,12 @@
 	  repo_url: string;
 	}
   
+	import { injectAnalytics } from '@vercel/analytics/sveltekit'
 	import { CardItem, CardBody, CardContainer } from '$lib/components/ui/ThreeDCardEffect';
 	import { Listgroup, ListgroupItem, Avatar } from 'flowbite-svelte';
 	import StickyScrollReveal from '$lib/components/ui/StickyScrollReveal/StickyScrollReveal.svelte';
+
+	injectAnalytics()
   
 	export let data: {
 	  users: {

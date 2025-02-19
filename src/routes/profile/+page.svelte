@@ -2,9 +2,12 @@
 	import GradientAnimation from '$lib/components/ui/GradientAnimation/GradientAnimation.svelte';
 	import AnimatedTooltip from '$lib/components/ui/AnimatedTooltip/AnimatedTooltip.svelte';
 	import Button from '$lib/components/ui/MovingBorder/Button.svelte';
+	import { injectAnalytics } from '@vercel/analytics/sveltekit'
 
 	const baseUrl = 'https://github.com/';
 	export let data;
+
+	injectAnalytics()
 
 	const user = data.user;
 	const info = data.followers;
