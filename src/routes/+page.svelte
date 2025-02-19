@@ -3,6 +3,7 @@
 
 	//import {signIn , signOut} from '../auth/auth'
 	import { signIn, signOut } from '@auth/sveltekit/client';
+	import { injectAnalytics } from '@vercel/analytics/sveltekit'
 	import { page } from '$app/state';
 	import { useTransform, useViewportScroll } from 'svelte-motion';
 	import { GoogleGeminiEffect } from '$lib/components/ui/GoogleGeminiEffect';
@@ -18,6 +19,8 @@
 	const pathLengthThird = useTransform(scrollYProgress, [0, 0.8], [0.1, 1.2]);
 	const pathLengthFourth = useTransform(scrollYProgress, [0, 0.8], [0.05, 1.2]);
 	const pathLengthFifth = useTransform(scrollYProgress, [0, 0.8], [0, 1.2]);
+
+	injectAnalytics()
 </script>
 
 <svelte:head>

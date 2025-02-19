@@ -1,0 +1,45 @@
+{
+    "name": "githooo",
+    "short_name": "githooo",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "./s_64x64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },
+        {
+            "src": "./s_192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./s_512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "./s_512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "./screen_1920x1080.png",
+            "type": "image/png",
+            "sizes": "1920x1080",
+            "form_factor": "wide"
+        },
+        {
+            "src": "./screen_1080x1920.png",
+            "type": "image/png",
+            "sizes": "1080x1920"
+        }
+    ]
+}

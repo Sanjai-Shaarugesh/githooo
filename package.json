@@ -71,6 +71,7 @@
 		"@svelteuidev/core": "^0.15.7",
 		"@svelteuidev/motion": "^0.15.7",
 		"@tailwindcss/aspect-ratio": "^0.4.2",
+		"@vercel/analytics": "^1.5.0",
 		"ai": "^4.1.11",
 		"aspect-ratio": "^2.1.5",
 		"axios": "^1.7.9",
