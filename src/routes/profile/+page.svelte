@@ -15,7 +15,7 @@
 	const User = user.login;
 	const url = `https://github.com/${User}`;
 
-	const formattedInfo = info.map(
+	const formattedInfo2 = info.map(
 		(/** @type {{ login: any; avatar_url: any; }} */ follower, /** @type {number} */ index) => ({
 			id: index + 1,
 			name: follower.login,
@@ -23,6 +23,24 @@
 			image: follower.avatar_url
 		})
 	);
+const remaning = {
+	id: formattedInfo2.length + 1,
+	name: `More +${formattedInfo2.length - 6} followers`,
+	designation: `${User} follower`,
+	image: 'https://imgs.search.brave.com/emNw7XX8UK3DfocYInHAX9bqpRAzwqiuxrt1u8uaD24/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni83ODg0Lzc4ODQw/NDkucG5nP3NlbXQ9/YWlzX2h5YnJpZA'
+}
+	const formattedInfo = info.slice(0,6).map(
+		(/** @type {{ login: any; avatar_url: any; }} */ follower, /** @type {number} */ index) => ({
+			id: index + 1,
+			name: follower.login,
+			designation: `${User} follower`,
+			image: follower.avatar_url
+		})
+	);
+
+	
+
+	
 </script>
 
 <svelte:head>
@@ -95,7 +113,14 @@
 				</div>
 				<div class="flex">
 					<AnimatedTooltip items={formattedInfo} />
+                    <AnimatedTooltip items={[remaning]} />
+					<div>
+						
+					</div>
+					
+					
 					<div class="ml-8">
+						
 						<a href={url} target="_blank">
 							<Button
 								borderRadius="1.75rem"
