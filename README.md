@@ -1,61 +1,25 @@
-# Discover Top GitHub Developers Worldwide with githooo 🌍
+# Stop Stressing, Start Trending!
 
-![githooo](https://raw.githubusercontent.com/Sanjai-Shaarugesh/githooo/refs/heads/main/static/pwa-192x192.png)
+# QuickCap
+A Quick & Easy Caption Generator For Your Social Media Posts
 
-This website helps you discover **top developers** from GitHub profiles all over the world! Whether you're looking for inspiration, collaboration, or just want to explore some of the best talent in the developer community, this platform has got you covered.
+## Why QuickCap?
+- 🕒 80% Of Creators Waste Hours On A Daily Basis On Captions & Hashtags.
+- ❗ Out 0f 500 Million Users 60% Of Users Struggle With Engagement.
+- 🫣 QuickCap Eases This Process By Helping You Generate Quick,Easy & Creative Captions Along With Hashtags Based On:
+  - The Images & Videos Uploaded,
+  - With Relevancy To The Latest Trends, &
+  - Cultural Relevance Which Includes Regional Slangs And Multi Language Support
+    
+ ## Tech Stack
+ - Svelte JS (Frontend)
+ - Elysia JS (Backend)
+ - Bun JS (JS Server)
+ - PyTorch (ML Model Creation)
+ - Fast API (ML Backend)
 
----
 
-## Why Use This Website?
 
-- **Global Reach**: Explore top developers from every corner of the globe.
-- **Easy Navigation**: Simple and intuitive interface to find developers based on location, skills, and contributions.
-- **Open Source**: Contribute to this project and help make it even better!
 
----
 
-## How It Works
-
-1. **Search**: Enter your desired location or skillset.
-2. **Discover**: Get a list of top GitHub profiles with detailed insights.
-3. **Connect**: Follow, collaborate, or simply admire their work!
-
----
-
-## Live Demo
-
-Visit the live version of the website to experience it yourself:
-
-![Website Preview](https://raw.githubusercontent.com/Sanjai-Shaarugesh/githooo/refs/heads/main/static/screenshot-wide.png)
-
-👉 [Click here to visit the website](https://githooo.vercel.app/)
-
----
-
-## Contribute to This Project
-
-We welcome contributions from the community! Whether it's fixing bugs, adding new features, or improving documentation, every contribution counts.
-
-### How to Contribute:
-
-1. Fork this repository.
-2. Create a new branch (`git checkout -b feature/githooo`).
-3. Commit your changes (`git commit -m 'Add some awesome feature'`).
-4. Push to the branch (`git push origin feature/githooo`).
-5. Open a pull request.
-
----
-
-## Support
-
-If you encounter any issues or have suggestions, feel free to open an issue in the repository.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](https://raw.githubusercontent.com/Sanjai-Shaarugesh/githooo/refs/heads/main/LICENSE) file for details.
-
----
-
-Made with ❤️ by [githooo/sanjai]
+  

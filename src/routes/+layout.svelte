@@ -47,11 +47,7 @@
 			link: '/',
 			icon: Home
 		},
-		{
-			name: 'Users',
-			link: '/users',
-			icon: ContactRound
-		},
+		
 		{
 			name: 'Profile',
 			link: '/profile',
@@ -166,7 +162,7 @@
 				</span>
 			</div>
 			<a href="/profile"><DropdownItem>profile</DropdownItem></a>
-			<a href="/users"><DropdownItem>Users</DropdownItem></a>
+		
 			<a href="/"><DropdownItem>Home</DropdownItem></a>
 			{#if !page.data.session} 
 			<a href="/login"><DropdownItem>Login</DropdownItem></a>
