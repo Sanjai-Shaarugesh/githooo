@@ -19,6 +19,8 @@ A Quick & Easy Caption Generator For Your Social Media Posts
  - Fast API (ML Backend)
 
 
+#### contributer Sanjai-Shaarugesh
+
 
 
 
